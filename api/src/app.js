@@ -1,20 +1,19 @@
-import express from "express";
-import morgan from "morgan";
+import dotenv from 'dotenv';
+import express from 'express';
+import { sequelize } from './models/index.js';
+import authRoutes from './routes/auth.js';
+import transactionRoutes from './routes/transaction.js';
+
+dotenv.config();
 
 const app = express();
 
-// Import routes
-
-// import projectRoutes from "../routes/projects.routes.js";
-// import taskRoutes from "../routes/tasks.routes.js";
-
-// Middlewares
-app.use(morgan("dev"));
 app.use(express.json());
+app.use('/auth', authRoutes);
+app.use('/transactions', transactionRoutes);
 
-// Routes
-
-// app.use("/api/projects", projectRoutes);
-// app.use("/api/tasks", taskRoutes);
-
-export default app;
+sequelize.sync({ force: false }).then(() => {
+    app.listen(3000, () => {
+        console.log('Server running on http://localhost:4000');
+    });
+});
