@@ -3,6 +3,7 @@ export const getUser = (req, res) => {
 }
 
 export const createUser = (req, res) => {
+    console.log(req.body)
     res.send('creating users')
 }
 
