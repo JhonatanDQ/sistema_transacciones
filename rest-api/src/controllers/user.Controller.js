@@ -1,17 +1,28 @@
-import { User } from '../models/User.js';
+import { User } from "../models/User.js";
 
+export const getUsers = async (req, res) => {
+  try {
+    const users = await User.findAll();
+    res.json(users);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
 
-export const getUsers = (req, res) => {
-    // try {
-    //     const users = awaitUser.findAll(); // Encuentra todos los usuarios en la base de datos
-    //     res.json(users); // Enviar los usuarios como JSON en la respuesta
-    //   } catch (error) {
-    //     res.status(500).json({ error: 'Error al obtener los usuarios' }); // Manejo de errores
-    //   }
-res.send('Getting Users')
-}
+export const createUser = async (req, res) => {
+  try {
+    const { nombre, usuario, contrasena, documento } = req.body;
 
-export const createUser = (req, res) => {
-    
-res.send('Creating User')
-}
+    const newUser = await User.create({
+      nombre,
+      usuario,
+      contrasena,
+      documento,
+    });
+
+    res.json(newUser);
+
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};

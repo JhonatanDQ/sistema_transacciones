@@ -10,37 +10,23 @@ export const User = sequelize.define('users', {
   },
   nombre: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    allowNull: true,
   },
   usuario: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
     unique: true,
-    validate: {
-      notEmpty: true,
-      isEmail: true,
-    },
   },
-  contraseña: {
+  contrasena: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-      len: [8, 128], 
-    },
-    set(value) {
-      this.setDataValue('contraseña', bcrypt.hashSync(value, 10));
-    },
+    allowNull: true,
+    // set(value) {
+    //   this.setDataValue('contraseña', bcrypt.hashSync(value, 10));
+    // },
   },
   documento: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    },
+    allowNull: true,
   },
 }, {
   timestamps: false, 
