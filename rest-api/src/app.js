@@ -5,7 +5,6 @@ const app = express();
 
 //middlewares
 
-app.use(express.json)
 
 app.use(userRoutes)
 

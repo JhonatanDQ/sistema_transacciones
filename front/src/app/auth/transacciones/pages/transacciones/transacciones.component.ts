@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [RouterModule],
   templateUrl: './transacciones.component.html',
-  styleUrl: './transacciones.component.css'
 })
 export class TransaccionesComponent {
 

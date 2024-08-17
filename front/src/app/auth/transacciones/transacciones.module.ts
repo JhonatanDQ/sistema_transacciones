@@ -6,11 +6,11 @@ import { TransaccionesComponent } from './pages/transacciones/transacciones.comp
 
 @NgModule({
   declarations: [
-    TransaccionesComponent
+
   ],
   imports: [
     CommonModule
-    
+
   ]
 })
 export class TransaccionesModule { }
