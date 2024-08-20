@@ -4,10 +4,8 @@ import { Form, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validat
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { crossmPasswordMatchingValidator, PasswordStateMatcher } from './custom-validators';
-import axios from 'axios';
-// import { ErrorStateMatcher } from '@angular/material/core';
 import swal  from 'sweetalert';
-// import { UsuariosApiService } from '../../../../services/usuarios-api.service';
+import { RegisterService } from '../../../services/register.service';
 
 @Component({
   selector: 'app-register',
@@ -30,23 +28,19 @@ export class RegisterComponent {
       contrasena: ['', Validators.required],
     },)
 
+    constructor( private registerservice: RegisterService){}
+
 
   clickRegister(): void {
 
-    axios.post('https://localhost:4000/users', this.formGroup)
-      .then(response => {
-        console.log('User registered successfully:', response.data);
-      })
-      .catch(error => {
-        console.error('Error registering user:', error);
-      });
-
-    if(!this.formGroup.valid){
-      swal("error!", "Complete los campos!", "error")
-    } else {
-      swal("Registrado!", "Se ha registrado!", "success")
-
-    }
+    if (!this.formGroup.valid) {
+      swal('Error', 'Formulario invalido', 'error');
+    } else if (this.formGroup.valid) {
+      this.registerservice
+        .registerUser(this.formGroup.value)
+    }else {
+  swal('Error', 'Error al registrar usuario', 'Success');
+}
 
   }
 
@@ -69,19 +63,3 @@ export class RegisterComponent {
 
 }
 
-
-
-// import { Injectable } from '@angular/core';
-// import { HttpClient } from '@angular/common/http';
-
-// @Injectable()
-// export class UsuariosApiService {
-
-//   private apiUrl = 'http://localhost:4000/users';
-
-//   constructor(private http: HttpClient) { }
-
-//   registerUser(userData: any) {
-//     return this.http.post(this.apiUrl, userData);
-//   }
-// }
