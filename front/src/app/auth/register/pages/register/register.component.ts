@@ -5,7 +5,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { crossmPasswordMatchingValidator, PasswordStateMatcher } from './custom-validators';
 import { ErrorStateMatcher } from '@angular/material/core';
-
+import swal  from 'sweetalert';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +30,13 @@ export class RegisterComponent {
 
 
   clickRegister(): void {
-// console.log(this.formGroup.get('nombre')?.value)
+
+    if(!this.formGroup.valid){
+      swal("error!", "Complete los campos!", "error")
+    } else {
+      swal("Registrado!", "Se ha registrado!", "success")
+    }
+
     const nombre = this.formGroup.controls.nombre.value
     console.log(nombre)
 
