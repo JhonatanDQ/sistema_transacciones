@@ -4,8 +4,10 @@ import { Form, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validat
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { crossmPasswordMatchingValidator, PasswordStateMatcher } from './custom-validators';
-import { ErrorStateMatcher } from '@angular/material/core';
+import axios from 'axios';
+// import { ErrorStateMatcher } from '@angular/material/core';
 import swal  from 'sweetalert';
+// import { UsuariosApiService } from '../../../../services/usuarios-api.service';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +20,7 @@ export class RegisterComponent {
   PasswordStateMatcher = new PasswordStateMatcher()
 
     private readonly _FormBuilder = inject(FormBuilder);
+    // private readonly _UsuariosApiService= inject (UsuariosApiService, {optional: true})
 
     formGroup = this._FormBuilder.nonNullable.group({
       nombre: ['', Validators.required],
@@ -25,24 +28,27 @@ export class RegisterComponent {
       usuario: ['', Validators.required],
       documento: ['', Validators.required],
       contrasena: ['', Validators.required],
-      confirmarContrasena: ['', Validators.required]
-    }, {validators:crossmPasswordMatchingValidator})
+    },)
 
 
   clickRegister(): void {
+
+    axios.post('https://localhost:4000/users', this.formGroup)
+      .then(response => {
+        console.log('User registered successfully:', response.data);
+      })
+      .catch(error => {
+        console.error('Error registering user:', error);
+      });
 
     if(!this.formGroup.valid){
       swal("error!", "Complete los campos!", "error")
     } else {
       swal("Registrado!", "Se ha registrado!", "success")
+
     }
 
-    const nombre = this.formGroup.controls.nombre.value
-    console.log(nombre)
-
-    console.log(this.formGroup.controls.nombre.valid)
   }
-
 
   get namesField (): FormControl{
     return this.formGroup.controls.nombre
@@ -60,9 +66,22 @@ export class RegisterComponent {
   get passwordField (): FormControl{
     return this.formGroup.controls.contrasena
   }
-  get confirmPasswordField(): FormControl{
-    return this.formGroup.controls.confirmarContrasena
-  }
-
 
 }
+
+
+
+// import { Injectable } from '@angular/core';
+// import { HttpClient } from '@angular/common/http';
+
+// @Injectable()
+// export class UsuariosApiService {
+
+//   private apiUrl = 'http://localhost:4000/users';
+
+//   constructor(private http: HttpClient) { }
+
+//   registerUser(userData: any) {
+//     return this.http.post(this.apiUrl, userData);
+//   }
+// }

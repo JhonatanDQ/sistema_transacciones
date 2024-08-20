@@ -10,6 +10,7 @@ import { RouterLink, RouterModule } from '@angular/router';
 })
 export class LoginComponent {
   userForm: FormGroup;
+LogIn: any;
 
   constructor() {
     this.userForm = new FormGroup({
@@ -19,8 +20,11 @@ export class LoginComponent {
       documento: new FormControl("", [Validators.required]),
     })
 
-
   }
+
+
+
+
 }
 
 

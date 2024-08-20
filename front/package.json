@@ -23,6 +23,8 @@
     "@angular/platform-server": "^18.1.0",
     "@angular/router": "^18.1.0",
     "@angular/ssr": "^18.1.4",
+    "axios": "^1.7.4",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "rxjs": "~7.8.0",
     "sweetalert": "^2.1.2",

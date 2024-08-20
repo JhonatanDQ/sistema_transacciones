@@ -10,7 +10,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
 })
 export class AppComponent {
-  title = 'Sistema Transacciones';
+  title = 'Pagina';
 
 
 }

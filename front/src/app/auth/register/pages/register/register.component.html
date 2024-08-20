@@ -47,23 +47,12 @@
           <h1 class="mt-2 font-semibold justify-start mb-2">
             Contraseña <a class="text-red-700">*</a>
           </h1>
-          <input placeholder="********" type="password" matInput [errorStateMatcher]="PasswordStateMatcher"
+          <input placeholder="********" type="password"
             class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
             formControlName="contrasena" />
             @if (passwordField.hasError('required')) {
               <mat-error class="mt-2 flex text-red-700">Ingrese la contraseña</mat-error>
               }
-          <!-- <h1 class="mt-4 font-semibold justify-start mb-2">
-            Confirmar Contraseña <a class="text-red-700">*</a>
-          </h1>
-          <input matInput placeholder="********" type="password" [errorStateMatcher]="PasswordStateMatcher"
-            class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
-            formControlName="confirmarContrasena" />
-            @if (confirmPasswordField.hasError('required')) {
-              <mat-error class="mt-2 flex text-red-700">Confirmar contraseña</mat-error>
-              } @if(formGroup.hasError('crossConfirmPassword')){
-                <mat-error>Las contraseñas no coinciden</mat-error>
-              } -->
 
           <a (click)="clickRegister()"
             class="w-40 h-12 bg-[#46119c] flex justify-center items-center rounded-lg mt-7 border-solid font-bold text-white border-b-4 border-[#a7009c] hover:cursor-pointer hover:bg-[#eb08cd] select-none">
