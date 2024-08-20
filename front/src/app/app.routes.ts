@@ -6,7 +6,6 @@ import { RegisterComponent } from './auth/register/pages/register/register.compo
 
 export const routes: Routes = [
   {path:'login', component: LoginComponent},
-  // {path: "home", component: LoginComponent},
   {path: "register", component: RegisterComponent},
   {path: "transacciones", component: TransaccionesComponent},
   {path: "", redirectTo: "login", pathMatch: "full"}

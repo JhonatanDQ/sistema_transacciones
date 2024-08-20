@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginModule } from './login/login.module';
 import { RegisterModule } from './register/register.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -10,7 +11,9 @@ import { RegisterModule } from './register/register.module';
   imports: [
     CommonModule,
     LoginModule,
-    RegisterModule
+    RegisterModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class AuthModule { }

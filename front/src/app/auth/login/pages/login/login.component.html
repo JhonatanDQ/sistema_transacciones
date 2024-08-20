@@ -1,14 +1,14 @@
 <main class="bg-slate-200">
-<form>
+<form [formGroup]="userForm">
 
   <div class="bg-black opacity-80 h-[500px] w-[990px] flex container justify-center mx-auto mt-24 drop-shadow-lg">
     <div class="bg-white h-[500px] w-[400px] flex mx-auto ml-[600px] drop-shadow-lg shadow-2xl">
       <div class="justify-center mx-auto items-center mt-10">
         <h1 class="font-semibold text-2xl text-center justify-center">Login</h1>
         <h1 class="mt-14 font-semibold justify-start ">Usuario</h1>
-        <input  type="text" placeholder="Usuario" class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[260px] bg-slate-200">
+        <input  type="text" placeholder="Usuario" class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[260px] bg-slate-200 form-control" formControlName:usuario >
         <h1 class="mt-5 font-semibold justify-start ">Contraseña</h1>
-        <input type="password" placeholder="Contraseña" class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[260px] bg-slate-200">
+        <input type="password" placeholder="Contraseña" class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[260px] bg-slate-200 form-control" formControlName:contrasena >
 
         <a routerLink="/transacciones" class="w-40 h-12 bg-[#139c11] flex justify-center items-center rounded-lg mt-7 border-solid font-bold text-white border-b-4 border-[#58a700] hover:cursor-pointer hover:bg-[#6aeb08] select-none">
           Iniciar sesión

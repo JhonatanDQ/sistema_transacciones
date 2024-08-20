@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
@@ -9,13 +9,18 @@ import { RouterLink, RouterModule } from '@angular/router';
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-
-}
-
-export class ReactiveFormsValidationComponent {
-
   userForm: FormGroup;
 
+  constructor() {
+    this.userForm = new FormGroup({
+      nombre: new FormControl("", [Validators.required]),
+      usuario: new FormControl("", [Validators.required]),
+      contrasena: new FormControl("", [Validators.required, Validators.minLength(8)]),
+      documento: new FormControl("", [Validators.required]),
+    })
+
+
+  }
 }
 
 
