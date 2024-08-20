@@ -1,33 +1,76 @@
-  <main>
-    <form [formGroup]="formGroup">
-
-  <div class="bg-slate-200">
-      <div class="bg-white flex container justify-center mx-auto h-[700px] w-[550px] mt-20 rounded-xl shadow-lg mb-24">
+<main>
+  <form [formGroup]="formGroup" (ngSubmit)="clickRegister()">
+    <div class="bg-slate-200">
+      <div class="bg-white flex container justify-center mx-auto h-auto w-[550px] mt-20 rounded-xl shadow-lg mb-24 py-5">
         <div class="p-4 justify-center mx-auto items-center">
-          <h1 class="font-semibold text-2xl text-center justify-center mt-2 select-none flex ">Registrarse</h1>
-          <h1 class="mt-14 font-semibold justify-start mb-2">Nombre <a class="text-red-700">*</a></h1>
-          <input type="text" class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200" formControlName="nombre">
-          @if (formGroup.controls.nombre.hasError('required')) {
-            <mat-error>Ingrese el nombre</mat-error>
+          <h1 class="font-semibold text-2xl text-center justify-center mt-2 select-none flex">
+            Registrarse
+          </h1>
+
+          <h1 class="mt-14 font-semibold justify-start mb-2">
+            Nombre <a class="text-red-700">*</a>
+          </h1>
+          <input MatInput type="text"
+            class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
+            formControlName="nombre" />
+          @if (namesField.hasError('required')) {
+          <mat-error class="mt-2 flex text-red-700">Ingrese el nombre</mat-error>
           }
 
+          <h1 class="mt-2 font-semibold justify-start mb-2">
+            Apellido <a class="text-red-700">*</a>
+          </h1>
+          <input type="text"
+            class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
+            formControlName="apellido" />
+            @if (lastNameField.hasError('required')) {
+              <mat-error class="mt-2 flex text-red-700">Ingrese el Apellido</mat-error>
+              }
+          <h1 class="mt-2 font-semibold justify-start mb-2">
+            Usuario <a class="text-red-700">*</a>
+          </h1>
+          <input type="text"
+            class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
+            formControlName="usuario" />
+            @if (userField.hasError('required')) {
+              <mat-error class="mt-2 flex text-red-700">Ingrese el usuario</mat-error>
+              }
+          <h1 class="mt-2 font-semibold justify-start mb-2">
+            Documento<a class="text-red-700">*</a>
+          </h1>
+          <input placeholder="" type="text"
+            class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
+            formControlName="documento" />
+            @if (documentField.hasError('required')) {
+              <mat-error class="mt-2 flex text-red-700">Ingrese el Documento</mat-error>
+              }
+          <h1 class="mt-2 font-semibold justify-start mb-2">
+            Contraseña <a class="text-red-700">*</a>
+          </h1>
+          <input placeholder="********" type="password" matInput [errorStateMatcher]="PasswordStateMatcher"
+            class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
+            formControlName="contrasena" />
+            @if (passwordField.hasError('required')) {
+              <mat-error class="mt-2 flex text-red-700">Ingrese la contraseña</mat-error>
+              }
+          <!-- <h1 class="mt-4 font-semibold justify-start mb-2">
+            Confirmar Contraseña <a class="text-red-700">*</a>
+          </h1>
+          <input matInput placeholder="********" type="password" [errorStateMatcher]="PasswordStateMatcher"
+            class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
+            formControlName="confirmarContrasena" />
+            @if (confirmPasswordField.hasError('required')) {
+              <mat-error class="mt-2 flex text-red-700">Confirmar contraseña</mat-error>
+              } @if(formGroup.hasError('crossConfirmPassword')){
+                <mat-error>Las contraseñas no coinciden</mat-error>
+              } -->
 
-          <h1 class="mt-2 font-semibold justify-start mb-2">Apellido <a class="text-red-700">*</a></h1>
-          <input type="text" class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200" formControlName="apellido">
-          <h1 class="mt-2 font-semibold justify-start mb-2">Usuario <a class="text-red-700">*</a></h1>
-          <input type="text" class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200" formControlName="usuario">
-          <h1 class="mt-2 font-semibold justify-start mb-2">Documento<a class="text-red-700">*</a></h1>
-          <input placeholder="" type="text" class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"formControlName="documento">
-          <h1  class="mt-2 font-semibold justify-start mb-2">Contraseña <a class="text-red-700">*</a></h1>
-          <input placeholder="********" type="password" class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200" formControlName="contrasena">
-          <h1  class="mt-4 font-semibold justify-start mb-2">Confirmar Contraseña <a class="text-red-700">*</a></h1>
-          <input placeholder="********" type="password" class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200" formControlName="confirmarContrasena">
-          <a  (click)="clickRegister()" class="w-40 h-12 bg-[#46119c] flex justify-center items-center rounded-lg mt-7 border-solid font-bold text-white border-b-4 border-[#a7009c] hover:cursor-pointer hover:bg-[#eb08cd] select-none">
+          <a (click)="clickRegister()"
+            class="w-40 h-12 bg-[#46119c] flex justify-center items-center rounded-lg mt-7 border-solid font-bold text-white border-b-4 border-[#a7009c] hover:cursor-pointer hover:bg-[#eb08cd] select-none">
             Registrarse
           </a>
         </div>
       </div>
-      </div>
-    </form>
-    </main>
-
+    </div>
+  </form>
+</main>
