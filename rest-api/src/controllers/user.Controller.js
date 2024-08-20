@@ -19,12 +19,11 @@ export const createUser = async (req, res) => {
       contrasena,
       documento,
     });
-
     res.json(newUser);
-
+    return res.send(true)
   } catch (error) {
-    return res.status(500).json({ message: error.message });
-    res.send()
+    // return res.status(500).json({ message: error.message });
+    return res.send(false)
   }
-  
+
 };

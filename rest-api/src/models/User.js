@@ -27,6 +27,7 @@ export const User = sequelize.define('users', {
   documento: {
     type: DataTypes.STRING,
     allowNull: true,
+    unique: true,
   },
 }, {
   timestamps: false, 
