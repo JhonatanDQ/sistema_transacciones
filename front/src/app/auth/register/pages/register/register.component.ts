@@ -1,22 +1,19 @@
-import { Component, inject, NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
 import {
-  Form,
   FormBuilder,
   FormControl,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {
-  crossmPasswordMatchingValidator,
   PasswordStateMatcher,
 } from './custom-validators';
 import swal from 'sweetalert';
 import { RegisterService } from '../../../services/register.service';
-import { response } from 'express';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -26,6 +23,7 @@ import { response } from 'express';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    CommonModule
   ],
   templateUrl: './register.component.html',
 })
@@ -33,7 +31,6 @@ export class RegisterComponent {
   PasswordStateMatcher = new PasswordStateMatcher();
 
   private readonly _FormBuilder = inject(FormBuilder);
-  // private readonly _UsuariosApiService= inject (UsuariosApiService, {optional: true})
 
   formGroup = this._FormBuilder.nonNullable.group({
     nombre: ['', Validators.required],
@@ -43,7 +40,7 @@ export class RegisterComponent {
     contrasena: ['', Validators.required],
   });
 
-  constructor(private registerservice: RegisterService) {}
+  constructor(private registerservice: RegisterService, private router: Router) {}
 
   clickRegister(): void {
     if (!this.formGroup.valid) {
@@ -56,6 +53,7 @@ export class RegisterComponent {
             swal('Error', 'Error al registrar usuario', 'error');
           } else {
             swal('Exito', 'Usuario registrado con exito', 'success');
+            this.router.navigate(['/']);
           }
         });
     }

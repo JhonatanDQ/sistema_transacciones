@@ -15,7 +15,6 @@ export const User = sequelize.define('users', {
   usuario: {
     type: DataTypes.STRING,
     allowNull: true,
-    unique: true,
   },
   contrasena: {
     type: DataTypes.STRING,
