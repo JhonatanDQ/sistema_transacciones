@@ -5,12 +5,12 @@ import swal from 'sweetalert';
 import { LoginService } from '../../../services/login.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule,MatFormFieldModule,
-    MatInputModule,],
+  imports: [RouterModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, CommonModule],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {

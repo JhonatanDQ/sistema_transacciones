@@ -8,7 +8,7 @@
           <input matInput type="text" placeholder="Usuario"
             class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[260px] bg-slate-200 form-control"
             formControlName="usuario" />
-          <mat-error *ngIf="userForm.get('usuario')?.hasError('required')">
+          <mat-error class="flex text-red-600 mt-2" *ngIf="userForm.get('usuario')?.hasError('required')">
             Ingrese el usuario
           </mat-error>
 
@@ -16,7 +16,7 @@
           <input type="password" placeholder="Contraseña"
             class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[260px] bg-slate-200 form-control"
             formControlName="contrasena" />
-          <mat-error *ngIf="userForm.get('contrasena')?.hasError('required')">
+          <mat-error class="flex text-red-600 mt-2" *ngIf="userForm.get('contrasena')?.hasError('required')">
             Ingrese la contraseña
           </mat-error>
 

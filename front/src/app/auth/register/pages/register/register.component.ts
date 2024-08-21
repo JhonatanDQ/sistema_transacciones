@@ -14,6 +14,10 @@ import {
 import swal from 'sweetalert';
 import { RegisterService } from '../../../services/register.service';
 import { CommonModule } from '@angular/common';
+import * as CryptoJS from 'crypto-js';
+import { FormGroup } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-register',
@@ -46,8 +50,16 @@ export class RegisterComponent {
     if (!this.formGroup.valid) {
       swal('Error', 'Formulario invalido', 'error');
     } else {
+
+      const password = this.formGroup.value.contrasena || '';
+      const encryptedPass = CryptoJS.SHA256(
+        password
+      ).toString();
+    const formData = {...this.formGroup.value, contrasena: encryptedPass};
+      console.log(formData)
+
       this.registerservice
-        .registerUser(this.formGroup.value)
+        .registerUser(formData)
         .then((response) => {
           if (!response) {
             swal('Error', 'Error al registrar usuario', 'error');
