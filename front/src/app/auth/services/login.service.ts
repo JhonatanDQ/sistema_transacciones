@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import * as CryptoJS from 'crypto-js';
-import { AuthService } from './auth.service'; // Import AuthService
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ import { AuthService } from './auth.service'; // Import AuthService
 export class LoginService {
   private readonly apiUrl = 'http://localhost:4000/users';
 
-  constructor(private authService: AuthService) {} // Inject AuthService
+  constructor(private authService: AuthService) {}
 
   async loginUser(userData: any): Promise<any> {
     try {
@@ -21,9 +21,9 @@ export class LoginService {
         const storedPassword = response.data[0].contrasena;
 
         if (storedPassword === encryptedPassword) {
-          
+
           const token = response.data.token;
-          this.authService.setToken(token); // guarda el token
+          this.authService.setToken(token);
           return response.data[0];
         } else {
           return false; // Contraseña incorrecta
