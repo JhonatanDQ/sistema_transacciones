@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  getProtectedData(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
   private tokenKey = 'auth_token'; // Key for local storage
-
-  constructor(private http: HttpClient) {}
 
   setToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
@@ -25,12 +24,7 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.getToken(); // Check if a token exists
   }
-
-  // Implementación de getProtectedData
-  getProtectedData(endpoint: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.getToken()}` // Incluye el token en los encabezados
-    });
-    return this.http.get(endpoint, { headers });
-  }
 }
+
+
+

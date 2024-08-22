@@ -1,36 +1,9 @@
-<main class="min-h-screen flex items-center justify-center bg-gray-100">
-  <section class="container max-w-[1600px] bg-slate-600 rounded-lg p-6">
-    <h1 class="text-4xl font-bold text-center text-white mb-6">Dashboard</h1>
-    <div class="bg-slate-200 p-4 rounded-lg shadow-md">
-      <h2 class="text-2xl font-semibold mb-4">Welcome to your Dashboard</h2>
-      <p class="text-lg mb-4">Your Balance: {{ balance | currency }}</p>
+<main>
+  <section class="text-3xl flex items-center justify-center mx-auto font-bold ">
+    <div class="mx-auto flex container max-w-[1600px] bg-slate-600 h-14 justify-center ">
+      <h1>Dashboard</h1>
+      <div class="bg-slate-200">
 
-      <input
-        type="number"
-        [(ngModel)]="transactionAmount"
-        placeholder="Enter amount"
-        class="w-full p-2 mb-4 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-
-      <div class="flex space-x-4">
-        <button
-          (click)="withdraw()"
-          class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-        >
-          Withdraw
-        </button>
-        <button
-          (click)="deposit()"
-          class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
-        >
-          Deposit
-        </button>
-        <button
-          (click)="transfer()"
-          class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-        >
-          Transfer
-        </button>
       </div>
     </div>
   </section>
