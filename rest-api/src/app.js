@@ -1,16 +1,18 @@
 import express from 'express';
-import userRoutes from './routes/users.routes.js'
-import { json } from 'sequelize';
 import cors from 'cors';
+import userRoutes from './routes/users.routes.js';
+import transactionRoutes from './routes/transactionRoutes.js'; // Importa las rutas de transacciones
 
 const app = express();
 
-
-//middlewares
-app.use(express.json())
-
+// Middlewares
+app.use(express.json());
 app.use(cors());
-app.use(userRoutes)
 
+// Usar las rutas de usuarios
+app.use('/api/users', userRoutes);
+
+// Usar las rutas de transacciones
+app.use('/api/transactions', transactionRoutes); // Asegúrate de que la ruta sea correcta
 
 export default app;

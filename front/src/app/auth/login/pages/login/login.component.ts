@@ -42,7 +42,7 @@ export class LoginComponent {
           // Use AuthService to handle the token
           this.authService.setToken(response.token); // Assuming your backend sends a 'token' property
 
-          this.router.navigate(['/transacciones']);
+          this.router.navigate(['/dashboard']);
         }
       })
       .catch(error => {
