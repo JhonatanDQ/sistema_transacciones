@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators, } from '@angular/forms';
-import { RouterLink, RouterModule, Router } from '@angular/router'; // Import Router
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink, RouterModule, Router } from '@angular/router';
 import swal from 'sweetalert';
 import { LoginService } from '../../../services/login.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,7 +16,9 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
   userForm: FormGroup;
 
-  constructor(private loginService: LoginService, private router: Router) {
+  constructor(private loginService: LoginService,
+              private router: Router,
+              ) {
     this.userForm = new FormGroup({
       usuario: new FormControl('', [Validators.required]),
       contrasena: new FormControl('', [Validators.required]),
@@ -35,13 +37,18 @@ export class LoginComponent {
           swal('Error', 'Error al iniciar sesión', 'error');
         } else {
           swal('Exito', 'Inicio de sesión exitoso', 'success');
-          //redirecciona al home
-          this.router.navigate(['/transacciones']);
+
+
+          this.router.navigate(['/dashboard']);
         }
       })
       .catch(error => {
         swal('Error', 'Error al iniciar sesión', 'error');
         console.error('Login error:', error);
       });
+  }
+
+  logout(): void {
+    this.router.navigate(['/login']);
   }
 }

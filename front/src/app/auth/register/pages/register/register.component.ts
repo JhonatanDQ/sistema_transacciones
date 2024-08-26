@@ -15,7 +15,7 @@ import swal from 'sweetalert';
 import { RegisterService } from '../../../services/register.service';
 import { CommonModule } from '@angular/common';
 import * as CryptoJS from 'crypto-js';
-import { FormGroup } from '@angular/forms';
+// import { FormGroup } from '@angular/forms';
 
 
 
@@ -37,8 +37,8 @@ export class RegisterComponent {
   private readonly _FormBuilder = inject(FormBuilder);
 
   formGroup = this._FormBuilder.nonNullable.group({
-    nombre: ['', Validators.required],
-    apellido: ['', Validators.required],
+    // nombre: ['', Validators.required],
+    // apellido: ['', Validators.required],
     usuario: ['', Validators.required],
     documento: ['', Validators.required],
     contrasena: ['', Validators.required],
@@ -56,7 +56,7 @@ export class RegisterComponent {
         password
       ).toString();
     const formData = {...this.formGroup.value, contrasena: encryptedPass};
-      console.log(formData)
+      // console.log(formData)
 
       this.registerservice
         .registerUser(formData)
@@ -71,13 +71,13 @@ export class RegisterComponent {
     }
   }
 
-  get namesField(): FormControl {
-    return this.formGroup.controls.nombre;
-  }
+  // get namesField(): FormControl {
+  //   return this.formGroup.controls.nombre;
+  // }
 
-  get lastNameField(): FormControl {
-    return this.formGroup.controls.apellido;
-  }
+  // get lastNameField(): FormControl {
+  //   return this.formGroup.controls.apellido;
+  // }
   get userField(): FormControl {
     return this.formGroup.controls.usuario;
   }

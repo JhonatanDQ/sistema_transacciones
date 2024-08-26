@@ -11,18 +11,17 @@ export const getUsers = async (req, res) => {
 
 export const createUser = async (req, res) => {
   try {
-    const { nombre, usuario, contrasena, documento } = req.body;
+    const { usuario, contrasena, documento } = req.body;
 
     const newUser = await User.create({
-      nombre,
       usuario,
       contrasena,
       documento,
     });
-    // res.json(newUser);
+    
     return res.send(true)
   } catch (error) {
-    // return res.status(500).json({ message: error.message });
+    
     return res.send(false)
   }
 
