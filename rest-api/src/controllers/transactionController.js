@@ -46,6 +46,7 @@ export const transfer = async (req, res) => {
     }
   };
   
+
   // Retiros
 
 export const withdraw = async (req, res) => {
@@ -74,7 +75,7 @@ export const withdraw = async (req, res) => {
       // Registrar la transacción de retiro
       await Transaction.create({
         userDocument: userDocument,
-        recipientDocument: '',  // Usa una cadena vacía o alguna etiqueta específica para retiros
+        recipientDocument: null, 
         amount,
         type: 'withdrawal',
       });
@@ -85,4 +86,39 @@ export const withdraw = async (req, res) => {
     }
   };
   
-  
+  // depositar monto de dinero
+
+  export const deposit = async (req, res) => { 
+    const { amount } = req.body;
+  const userDocument = req.User.documento;
+
+  if (amount <= 0) {
+    return res.status(400).json({ message: 'La cantidad debe ser positiva.' });
+  }
+
+  try {
+    // Buscar al usuario
+    const user = await User.findOne({ where: { documento: userDocument } });
+    if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
+
+    // Realizar el depósito
+    user.balance += amount;
+
+    // Guardar el cambio en el balance
+    await user.save();
+
+    // Registrar la transacción de depósito
+    await Transaction.create({
+      userDocument: userDocument,
+      recipientDocument: null,  // Puedes usar null o algún valor representativo
+      amount,
+      type: 'deposit',
+    });
+
+    res.json({ balance: user.balance, message: 'Depósito exitoso' });
+  } catch (error) {
+    console.error("Error detallado:", error);
+    res.status(500).json({ message: 'Error al procesar el depósito', error });
+  }
+
+  }
