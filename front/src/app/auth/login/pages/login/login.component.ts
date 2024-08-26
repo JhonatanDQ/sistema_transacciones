@@ -6,6 +6,7 @@ import { LoginService } from '../../../services/login.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,11 @@ export class LoginComponent {
 
   constructor(private loginService: LoginService,
               private router: Router,
+<<<<<<< HEAD
               ) {
+=======
+              private authService: AuthService) {
+>>>>>>> b417405f923b4c2e6d06d02e70b4132bf66c85ba
     this.userForm = new FormGroup({
       usuario: new FormControl('', [Validators.required]),
       contrasena: new FormControl('', [Validators.required]),
@@ -38,6 +43,11 @@ export class LoginComponent {
         } else {
           swal('Exito', 'Inicio de sesión exitoso', 'success');
 
+<<<<<<< HEAD
+=======
+          // Use AuthService to handle the token
+          this.authService.setToken(response.token); // Assuming your backend sends a 'token' property
+>>>>>>> b417405f923b4c2e6d06d02e70b4132bf66c85ba
 
           this.router.navigate(['/dashboard']);
         }
@@ -49,6 +59,10 @@ export class LoginComponent {
   }
 
   logout(): void {
+<<<<<<< HEAD
+=======
+    this.authService.removeToken();
+>>>>>>> b417405f923b4c2e6d06d02e70b4132bf66c85ba
     this.router.navigate(['/login']);
   }
 }
