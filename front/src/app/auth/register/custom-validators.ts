@@ -1,7 +1,5 @@
 // import { customPasswordValidator } from './custom-validators';
 
-
-
 import { AbstractControl, FormGroupDirective,NgForm, PatternValidator, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 

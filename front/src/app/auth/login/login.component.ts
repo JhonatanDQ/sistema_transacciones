@@ -1,19 +1,33 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators, } from '@angular/forms';
-import { RouterLink, RouterModule, Router } from '@angular/router'; // Import Router
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { RouterModule, Router } from '@angular/router'; // Import Router
 import swal from 'sweetalert';
-import { LoginService } from '../../../services/login.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
+import { LoginService } from '../../../app/core/services/login.service';
+import RegisterComponent from '../register/register.component';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, CommonModule],
+  imports: [
+    RouterModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    CommonModule,
+    RegisterComponent
+  ],
   templateUrl: './login.component.html',
 })
-export class LoginComponent {
+export default class LoginComponent {
   userForm: FormGroup;
 
   constructor(private loginService: LoginService, private router: Router) {
@@ -38,10 +52,10 @@ export class LoginComponent {
           //redirecciona al home
           this.router.navigate(['/dashboard']);
         }
-      })
-      .catch(error => {
-        swal('Error', 'Error al iniciar sesión', 'error');
-        console.error('Login error:', error);
-      });
+          })
+          .catch(error => {
+            swal('Error', 'Error al iniciar sesión', 'error');
+            console.error('Login error:', error);
+          });
+      }
   }
-}

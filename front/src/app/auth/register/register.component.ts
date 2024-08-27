@@ -8,13 +8,12 @@ import {
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {
-  PasswordStateMatcher,
-} from './custom-validators';
-import swal from 'sweetalert';
-import { RegisterService } from '../../../services/register.service';
+import { PasswordStateMatcher } from './custom-validators';
+import Swal from 'sweetalert2'; // Cambio a sweetalert2
 import { CommonModule } from '@angular/common';
 import * as CryptoJS from 'crypto-js';
+import { RegisterService } from '../../../app/core/services/register.service';
+import LoginComponent from '../login/login.component';
 
 
 @Component({
@@ -25,63 +24,57 @@ import * as CryptoJS from 'crypto-js';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    CommonModule
+    CommonModule,
+    LoginComponent
   ],
   templateUrl: './register.component.html',
 })
-export class RegisterComponent {
+export default class RegisterComponent {
   PasswordStateMatcher = new PasswordStateMatcher();
 
   private readonly _FormBuilder = inject(FormBuilder);
+  private readonly registerService = inject(RegisterService); // Inyección del servicio
+  private readonly router = inject(Router); // Inyección del router
 
   formGroup = this._FormBuilder.nonNullable.group({
-    // nombre: ['', Validators.required],
-    // apellido: ['', Validators.required],
     usuario: ['', Validators.required],
     documento: ['', Validators.required],
     contrasena: ['', Validators.required],
   });
 
-  constructor(private registerservice: RegisterService, private router: Router) {}
-
   clickRegister(): void {
     if (!this.formGroup.valid) {
-      swal('Error', 'Formulario invalido', 'error');
+      Swal.fire('Error', 'Formulario inválido', 'error');
     } else {
-
       const password = this.formGroup.value.contrasena || '';
-      const encryptedPass = CryptoJS.SHA256(
-        password
-      ).toString();
-    const formData = {...this.formGroup.value, contrasena: encryptedPass};
-      // console.log(formData)
+      const encryptedPass = CryptoJS.SHA256(password).toString();
+      const formData = { ...this.formGroup.value, contrasena: encryptedPass };
 
-      this.registerservice
+      this.registerService
         .registerUser(formData)
         .then((response) => {
           if (!response) {
-            swal('Error', 'Error al registrar usuario', 'error');
+            Swal.fire('Error', 'Error al registrar usuario', 'error');
           } else {
-            swal('Exito', 'Usuario registrado con exito', 'success');
+            Swal.fire('Éxito', 'Usuario registrado con éxito', 'success');
             this.router.navigate(['/']);
           }
+        })
+        .catch((error) => {
+          Swal.fire('Error', 'Error al registrar usuario', 'error');
+          console.error('Registration error:', error);
         });
     }
   }
 
-  // get namesField(): FormControl {
-  //   return this.formGroup.controls.nombre;
-  // }
-
-  // get lastNameField(): FormControl {
-  //   return this.formGroup.controls.apellido;
-  // }
   get userField(): FormControl {
     return this.formGroup.controls.usuario;
   }
+
   get documentField(): FormControl {
     return this.formGroup.controls.documento;
   }
+
   get passwordField(): FormControl {
     return this.formGroup.controls.contrasena;
   }

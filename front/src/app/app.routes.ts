@@ -1,13 +1,28 @@
 import { Routes } from '@angular/router';
-import { TransaccionesComponent } from './auth/transacciones/pages/dashboard/dashboard.component';
-import { LoginComponent } from './auth/login/pages/login/login.component';
-import { RegisterComponent } from './auth/register/pages/register/register.component';
-
 
 export const routes: Routes = [
-  {path:'login', component: LoginComponent},
-  {path: "register", component: RegisterComponent},
-  {path: "dashboard", component: TransaccionesComponent},
-  {path: "", redirectTo: "login", pathMatch: "full"}
-];
+  {
+    path: 'auth',
+    loadComponent: () => import('./auth/login/login.component'),
+    children: [
+      {
+        path: 'login',
+        title: 'Login',
+        loadComponent: () => import('./auth/login/login.component'),
+      },
+      {
+        path: 'register',
+        title: 'Register',
+        loadComponent: () => import('./auth/register/register.component'),
+      },
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+    ],
+  },
 
+  // {
+  //   path: 'dashboard',
+  //   loadComponent: () => import('./auth/dashboard/dashboard.component'),
+  // },
+
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+];

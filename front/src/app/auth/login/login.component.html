@@ -3,30 +3,36 @@
     <div class="bg-black opacity-80 h-[500px] w-[990px] flex container justify-center mx-auto mt-24 drop-shadow-lg">
       <div class="bg-white h-[500px] w-[400px] flex mx-auto ml-[600px] drop-shadow-lg shadow-2xl">
         <div class="justify-center mx-auto items-center mt-10">
-          <h1 class="font-semibold text-2xl text-center justify-center">Login</h1>
-          <h1 class="mt-14 font-semibold justify-start ">Usuario</h1>
+          <h1 class="font-semibold text-2xl text-center">Login</h1>
+
+          <!-- Usuario -->
+          <h1 class="mt-14 font-semibold">Usuario</h1>
           <input matInput type="text" placeholder="Usuario"
-            class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[260px] bg-slate-200 form-control"
+            class="px-4 py-1 mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[260px] bg-slate-200 form-control"
             formControlName="usuario" />
           <mat-error class="flex text-red-600 mt-2" *ngIf="userForm.get('usuario')?.hasError('required')">
             Ingrese el usuario
           </mat-error>
 
-          <h1 class="mt-5 font-semibold justify-start ">Contraseña</h1>
-          <input type="password" placeholder="Contraseña"
-            class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[260px] bg-slate-200 form-control"
+          <!-- Contraseña -->
+          <h1 class="mt-5 font-semibold">Contraseña</h1>
+          <input matInput type="password" placeholder="Contraseña"
+            class="px-4 py-1 mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[260px] bg-slate-200 form-control"
             formControlName="contrasena" />
           <mat-error class="flex text-red-600 mt-2" *ngIf="userForm.get('contrasena')?.hasError('required')">
             Ingrese la contraseña
           </mat-error>
 
+          <!-- Botón de Iniciar Sesión -->
           <a (click)="clickLogin()"
             class="w-40 h-12 bg-[#139c11] flex justify-center items-center rounded-lg mt-7 border-solid font-bold text-white border-b-4 border-[#58a700] hover:cursor-pointer hover:bg-[#6aeb08] select-none">
             Iniciar sesión
           </a>
+
+          <!-- Registro -->
           <p class="mt-2 text-slate-600 select-none">¿No tienes cuenta?</p>
-          <a routerLink="/register"
-            class="text-blue-400 underline text-sm cursor-pointer select-none">Registrate</a>
+          <a routerLink="register"
+            class="text-blue-400 underline text-sm cursor-pointer select-none">Regístrate</a>
         </div>
       </div>
     </div>

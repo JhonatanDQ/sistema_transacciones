@@ -36,4 +36,13 @@ export class LoginService {
       return false; // Handle errors appropriately
     }
   }
+
+//   async registerUser(userData: any): Promise<any> {
+//     try {
+//       const response = await axios.post(this.apiUrl, userData);
+//       return response.data;
+//     } catch (error) {
+//       console.log('Error: ', error);
+//     }
+//   }
 }
