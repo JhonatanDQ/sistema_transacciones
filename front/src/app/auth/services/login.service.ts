@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import * as CryptoJS from 'crypto-js';
-import { AuthService } from './auth.service';
+import * as CryptoJS from 'crypto-js'; // Import CryptoJS
 
 @Injectable({
   providedIn: 'root',
@@ -9,31 +8,32 @@ import { AuthService } from './auth.service';
 export class LoginService {
   private readonly apiUrl = 'http://localhost:4000/users';
 
-  constructor(private authService: AuthService) {}
-
   async loginUser(userData: any): Promise<any> {
     try {
+      // Encrypt the entered password using SHA256 (same as in registration)
       const encryptedPassword = CryptoJS.SHA256(userData.contrasena).toString();
+
+      // Construct the API URL with the username for filtering
       const url = `${this.apiUrl}?usuario=${userData.usuario}`;
+
       const response = await axios.get(url);
 
       if (response.data.length > 0) {
+        // User found, now compare the encrypted passwords
         const storedPassword = response.data[0].contrasena;
 
+        // Compare the entered encrypted password with the stored encrypted password
         if (storedPassword === encryptedPassword) {
-
-          const token = response.data.token;
-          this.authService.setToken(token);
-          return response.data[0];
+          return response.data[0]; // Return the user data if passwords match
         } else {
-          return false; // Contraseña incorrecta
+          return false; // Passwords don't match
         }
       } else {
-        return false; // Usuario no encontrado
+        return false; // User not found
       }
     } catch (error) {
       console.log('Error: ', error);
-      return false;
+      return false; // Handle errors appropriately
     }
   }
 }

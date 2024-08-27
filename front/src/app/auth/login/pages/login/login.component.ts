@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink, RouterModule, Router } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators, } from '@angular/forms';
+import { RouterLink, RouterModule, Router } from '@angular/router'; // Import Router
 import swal from 'sweetalert';
 import { LoginService } from '../../../services/login.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +16,7 @@ import { AuthService } from '../../../services/auth.service';
 export class LoginComponent {
   userForm: FormGroup;
 
-  constructor(private loginService: LoginService,
-              private router: Router,
-<<<<<<< HEAD
-              ) {
-=======
-              private authService: AuthService) {
->>>>>>> b417405f923b4c2e6d06d02e70b4132bf66c85ba
+  constructor(private loginService: LoginService, private router: Router) {
     this.userForm = new FormGroup({
       usuario: new FormControl('', [Validators.required]),
       contrasena: new FormControl('', [Validators.required]),
@@ -42,13 +35,7 @@ export class LoginComponent {
           swal('Error', 'Error al iniciar sesión', 'error');
         } else {
           swal('Exito', 'Inicio de sesión exitoso', 'success');
-
-<<<<<<< HEAD
-=======
-          // Use AuthService to handle the token
-          this.authService.setToken(response.token); // Assuming your backend sends a 'token' property
->>>>>>> b417405f923b4c2e6d06d02e70b4132bf66c85ba
-
+          //redirecciona al home
           this.router.navigate(['/dashboard']);
         }
       })
@@ -56,13 +43,5 @@ export class LoginComponent {
         swal('Error', 'Error al iniciar sesión', 'error');
         console.error('Login error:', error);
       });
-  }
-
-  logout(): void {
-<<<<<<< HEAD
-=======
-    this.authService.removeToken();
->>>>>>> b417405f923b4c2e6d06d02e70b4132bf66c85ba
-    this.router.navigate(['/login']);
   }
 }

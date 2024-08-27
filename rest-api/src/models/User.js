@@ -7,13 +7,6 @@ export const User = sequelize.define('users', {
     autoIncrement: true,
     primaryKey: false
   },
-<<<<<<< HEAD
-=======
-  // nombre: {
-  //   type: DataTypes.STRING,
-  //   allowNull: true,
-  // },
->>>>>>> b417405f923b4c2e6d06d02e70b4132bf66c85ba
   usuario: {
     type: DataTypes.STRING,
     allowNull: true,

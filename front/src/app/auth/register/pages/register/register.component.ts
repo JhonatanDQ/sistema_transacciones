@@ -15,8 +15,6 @@ import swal from 'sweetalert';
 import { RegisterService } from '../../../services/register.service';
 import { CommonModule } from '@angular/common';
 import * as CryptoJS from 'crypto-js';
-// import { FormGroup } from '@angular/forms';
-
 
 
 @Component({
