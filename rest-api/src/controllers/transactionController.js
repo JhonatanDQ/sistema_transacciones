@@ -124,4 +124,20 @@ export const deposit = async (req, res) => {
   } catch (error) {
       res.status(500).json({ message: 'Error al procesar el depósito', error });
   }
+
+
+
+};
+
+// Balance
+export const balance = async (req, res) => {
+    const userDocument = req.User.documento;
+    try {
+        const user = await User.findOne({ where: { documento: userDocument } });
+        if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
+        
+        res.json({ balance: user.balance });
+    } catch (error) {
+        res.status(500).json({ message: 'Error al obtener el balance', error });
+    }
 };

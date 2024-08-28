@@ -58,4 +58,5 @@ export default class LoginComponent {
             console.error('Login error:', error);
           });
       }
+
   }

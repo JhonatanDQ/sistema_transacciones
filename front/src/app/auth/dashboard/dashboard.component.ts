@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
+import { BalanceComponent } from '../balance/balance.component';
+
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [BalanceComponent],
   templateUrl: './dashboard.component.html',
 
 })
-export class DashboardComponent {
-
-}
+export default class DashboardComponent {}

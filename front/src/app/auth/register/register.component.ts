@@ -9,11 +9,10 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PasswordStateMatcher } from './custom-validators';
-import Swal from 'sweetalert2'; // Cambio a sweetalert2
+import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import * as CryptoJS from 'crypto-js';
 import { RegisterService } from '../../../app/core/services/register.service';
-import LoginComponent from '../login/login.component';
 
 
 @Component({
@@ -25,7 +24,6 @@ import LoginComponent from '../login/login.component';
     MatFormFieldModule,
     MatInputModule,
     CommonModule,
-    LoginComponent
   ],
   templateUrl: './register.component.html',
 })
@@ -33,8 +31,8 @@ export default class RegisterComponent {
   PasswordStateMatcher = new PasswordStateMatcher();
 
   private readonly _FormBuilder = inject(FormBuilder);
-  private readonly registerService = inject(RegisterService); // Inyección del servicio
-  private readonly router = inject(Router); // Inyección del router
+
+  constructor(private registerService: RegisterService, private router: Router) {}
 
   formGroup = this._FormBuilder.nonNullable.group({
     usuario: ['', Validators.required],
@@ -57,7 +55,7 @@ export default class RegisterComponent {
             Swal.fire('Error', 'Error al registrar usuario', 'error');
           } else {
             Swal.fire('Éxito', 'Usuario registrado con éxito', 'success');
-            this.router.navigate(['/']);
+            this.router.navigate(['']);
           }
         })
         .catch((error) => {
@@ -78,4 +76,6 @@ export default class RegisterComponent {
   get passwordField(): FormControl {
     return this.formGroup.controls.contrasena;
   }
+
+
 }
