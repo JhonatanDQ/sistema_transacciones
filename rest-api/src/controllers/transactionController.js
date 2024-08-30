@@ -126,18 +126,21 @@ export const deposit = async (req, res) => {
   }
 
 
-
 };
+
 
 // Balance
 export const balance = async (req, res) => {
     const userDocument = req.User.documento;
     try {
+        // Encuentra el usuario basado en el documento del usuario autenticado
         const user = await User.findOne({ where: { documento: userDocument } });
         if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
         
+        // Devuelve solo el balance del usuario
         res.json({ balance: user.balance });
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener el balance', error });
     }
 };
+

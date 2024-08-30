@@ -7,21 +7,10 @@ import { TransactionService } from '../../core/services/transaction.service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './balance.component.html',
-  providers: [TransactionService] // Proporciona el servicio aquí si es necesario
+  providers: [TransactionService]
 })
-export class BalanceComponent implements OnInit {
-  balance: number | null = null;
+export class BalanceComponent {
 
-  constructor(private transactionService: TransactionService) {}
-
-  ngOnInit(): void {
-    this.transactionService.getBalance().subscribe({
-      next: (balance: number) => {
-        this.balance = balance;
-      },
-      error: (err: any) => {
-        console.error('Error fetching balance:', err);
-      }
-    });
-  }
+  balance = 0
+  
 }
