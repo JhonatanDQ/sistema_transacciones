@@ -81,6 +81,16 @@ export const Login = async (req, res) => {
       environment.jwt_hash
     );
 
+
+    // const token = jwt.sign({ documento: user.documento }, environment.jwt_hash, { expiresIn: '1h' });
+
+        // Envía el token en una cookie
+        res.cookie('token', token, {
+            httpOnly: true, // Solo accesible a través de HTTP(S), no JavaScript
+            secure: false, // Solo se enviará a través de HTTPS en producción
+            maxAge: 3600000, // 1 hora en milisegundos
+        });
+
     res.status(200).json({
       success: true,
       token: token,
@@ -90,7 +100,30 @@ export const Login = async (req, res) => {
   }
 };
 
+export const dashboard = (req, res) => {
+  const token = req.cookies.token;
+if (!token) {
+  return res.status(401).json({ message: "Token no proporcionado" });
+}
+const decoded = Jwt.verify(token, environment.jwt_hash);
+if (!decoded) {
+  return res.status(401).json({ message: "Token inválido" });
+}
+res.status(200).json({
+  success: true,
+  message: "Dashboard",
+})
+};
+
+export const logout = (req, res) => {
+  res.clearCookie('token');
+  res.status(200).json({ message: "Logout exitoso" });
+};
+
+
 export default {
   Login,
   Register,
+  logout,
+  dashboard
 };

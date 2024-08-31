@@ -1,11 +1,14 @@
 import jwt from 'jsonwebtoken';
 import { environment } from '../config/default.js';
+import User from '../models/User.js';
+
 
 
 // Middleware para verificar el token JWT
 export const verifyToken = (req, res, next) => {
   // Obtener el token desde los headers de la solicitud
   const token = req.headers['authorization'];
+//   const token = req.cookies.token;
 
   // Si no hay token, retornar un error
   if (!token) {
@@ -26,3 +29,9 @@ export const verifyToken = (req, res, next) => {
     return res.status(401).json({ message: 'Token inválido.' });
   }
 };
+
+
+
+
+
+

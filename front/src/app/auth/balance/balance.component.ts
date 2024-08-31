@@ -9,7 +9,7 @@ import { BalanceService } from '../../core/services/balance.service'; // Ajusta 
 })
 export class BalanceComponent implements OnInit {
   balance: number = 0;
-  accountEnding: string = '****'; // Deberías obtener esto del backend también
+  accountEnding: string = '****';
 
   constructor(private balanceService: BalanceService) {}
 
@@ -20,12 +20,23 @@ export class BalanceComponent implements OnInit {
   loadBalance(): void {
     this.balanceService.getBalance().subscribe({
       next: (data) => {
-        this.balance = data.balance; // Ajusta según la estructura de tu respuesta de API
-        this.accountEnding = data.accountEnding; // Ajusta según la estructura de tu respuesta de API
+        this.balance = data.balance;
       },
       error: (err) => {
         console.error('Error fetching balance:', err);
       }
     });
+
+    // this.balanceService.getBalance().subscribe({
+    //   next: (data) => {
+    //     this.balance = data.balance; // Ajusta según la estructura de tu respuesta de API
+    //     this.accountEnding = data.accountEnding; // Ajusta según la estructura de tu respuesta de API
+    //   },
+    //   error: (err) => {
+    //     console.error('Error fetching balance:', err);
+    //   }
+    // });
+  // }
+
   }
 }

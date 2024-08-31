@@ -6,7 +6,7 @@ import { transfer, withdraw, deposit, balance } from '../controllers/transaction
 const router = Router();
 
 // Protected routes
-router.use(verifyToken);
+// router.use(verifyToken);
 // router.get('/dashboard', verifyToken);
 router.post('/transfer', verifyToken, transfer);
 router.post('/withdraw', verifyToken, withdraw);

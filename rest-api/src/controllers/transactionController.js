@@ -1,5 +1,6 @@
 import User from '../models/User.js';
 import Transaction from '../models/Transactions.js';
+import { environment } from '../config/default.js';
 
 // Transferencias
 export const transfer = async (req, res) => {
@@ -131,7 +132,10 @@ export const deposit = async (req, res) => {
 
 // Balance
 export const balance = async (req, res) => {
+    // Obtener el documento del usuario autenticado
     const userDocument = req.User.documento;
+    const balance = req.User.balance;
+
     try {
         userDocument = req.body.User
         // Encuentra el usuario basado en el documento del usuario autenticado
@@ -139,11 +143,33 @@ export const balance = async (req, res) => {
         if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
         
         // Devuelve solo el balance del usuario
-        res.json({ balance: user.balance });
+        res.json({ balance: User.balance });
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener el balance', error });
     }
 };
+
+
+// export const balance = async (req, res) => {
+//     try {
+//         const { amount } = req.body;
+//         const userDocument = req.User.documento;
+  
+//       if (!userDocument) { 
+//         res.status(404).json({ message: 'Usuario no encontrado' });
+
+//          } if(userDocument){
+//       // Lógica para obtener y devolver el balance del usuario
+//       const balance = await Transaction.getBalance(userDocument.documento);
+//       res.json({ amount });
+//          }
+//     } catch (err) {
+//       res.status(500).json({ message: 'Error al obtener el balance' });
+//     }
+//   };
+  
+  
+
 
 export default {
     transfer,

@@ -22,7 +22,21 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () => import('./auth/dashboard/dashboard.component'),
-    canActivate: [AuthGuard]  // Protege la ruta con el guard
+    canActivate: [AuthGuard],
+
+    children: [
+      // {
+      //   path: 'balance',
+      //   title: 'Balance',
+      //   loadComponent: () => import('./auth/balance/balance.component'),
+      // },
+      // {
+      //   path: 'deposit',
+      //   title: 'Deposit',
+      //   loadComponent: () => import('../'),
+      // },
+    ]
+
   },
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
 ];
