@@ -7,53 +7,30 @@
             Registrarse
           </h1>
 
-          <!-- <h1 class="mt-14 font-semibold justify-start mb-2">
-            Nombre <a class="text-red-700">*</a>
-          </h1>
-          <input MatInput type="text"
-            class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
-            formControlName="nombre" />
-          @if (namesField.hasError('required')) {
-          <mat-error class="mt-2 flex text-red-700">Ingrese el nombre</mat-error>
-          }
-
-          <h1 class="mt-2 font-semibold justify-start mb-2">
-            Apellido <a class="text-red-700">*</a>
-          </h1>
-          <input type="text"
-            class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
-            formControlName="apellido" />
-            @if (lastNameField.hasError('required')) {
-              <mat-error class="mt-2 flex text-red-700">Ingrese el Apellido</mat-error>
-              } -->
-
           <h1 class="mt-2 font-semibold justify-start mb-2">
             Usuario <a class="text-red-700">*</a>
           </h1>
           <input type="text"
             class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
             formControlName="usuario" />
-            @if (userField.hasError('required')) {
-              <mat-error class="mt-2 flex text-red-700">Ingrese el usuario</mat-error>
-              }
+          <mat-error *ngIf="formGroup.get('usuario')?.hasError('required')" class="mt-2 flex text-red-700">Ingrese el usuario</mat-error>
+
           <h1 class="mt-2 font-semibold justify-start mb-2">
             Documento<a class="text-red-700">*</a>
           </h1>
-          <input placeholder="" type="text"
+          <input type="text"
             class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
             formControlName="documento" />
-            @if (documentField.hasError('required')) {
-              <mat-error class="mt-2 flex text-red-700">Ingrese el Documento</mat-error>
-              }
+          <mat-error *ngIf="formGroup.get('documento')?.hasError('required')" class="mt-2 flex text-red-700">Ingrese el Documento</mat-error>
+
           <h1 class="mt-2 font-semibold justify-start mb-2">
             Contraseña <a class="text-red-700">*</a>
           </h1>
-          <input placeholder="********" type="password"
+          <input type="password"
             class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
             formControlName="contrasena" />
-            @if (passwordField.hasError('required')) {
-              <mat-error class="mt-2 flex text-red-700">Ingrese la contraseña</mat-error>
-              }
+          <mat-error *ngIf="formGroup.get('contrasena')?.hasError('required')" class="mt-2 flex text-red-700">Ingrese la contraseña</mat-error>
+          <mat-error *ngIf="formGroup.get('contrasena')?.hasError('minlength')" class="mt-2 flex text-red-700">La contraseña debe tener al menos 8 caracteres</mat-error>
 
           <a (click)="clickRegister()"
             class="w-40 h-12 bg-[#46119c] flex justify-center items-center rounded-lg mt-7 border-solid font-bold text-white border-b-4 border-[#a7009c] hover:cursor-pointer hover:bg-[#eb08cd] select-none">

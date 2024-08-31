@@ -8,12 +8,10 @@ import {
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { PasswordStateMatcher } from './custom-validators';
-import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 import * as CryptoJS from 'crypto-js';
 import { RegisterService } from '../../../app/core/services/register.service';
-
 
 @Component({
   selector: 'app-register',
@@ -28,8 +26,6 @@ import { RegisterService } from '../../../app/core/services/register.service';
   templateUrl: './register.component.html',
 })
 export default class RegisterComponent {
-  PasswordStateMatcher = new PasswordStateMatcher();
-
   private readonly _FormBuilder = inject(FormBuilder);
 
   constructor(private registerService: RegisterService, private router: Router) {}
@@ -37,32 +33,37 @@ export default class RegisterComponent {
   formGroup = this._FormBuilder.nonNullable.group({
     usuario: ['', Validators.required],
     documento: ['', Validators.required],
-    contrasena: ['', Validators.required],
+    contrasena: ['', [Validators.required, Validators.minLength(8)]],
   });
 
   clickRegister(): void {
-    if (!this.formGroup.valid) {
-      Swal.fire('Error', 'Formulario inválido', 'error');
-    } else {
-      const password = this.formGroup.value.contrasena || '';
-      const encryptedPass = CryptoJS.SHA256(password).toString();
-      const formData = { ...this.formGroup.value, contrasena: encryptedPass };
-
-      this.registerService
-        .registerUser(formData)
-        .then((response) => {
-          if (!response) {
-            Swal.fire('Error', 'Error al registrar usuario', 'error');
-          } else {
-            Swal.fire('Éxito', 'Usuario registrado con éxito', 'success');
-            this.router.navigate(['']);
-          }
-        })
-        .catch((error) => {
-          Swal.fire('Error', 'Error al registrar usuario', 'error');
-          console.error('Registration error:', error);
-        });
+    if (this.formGroup.invalid) {
+      if (this.passwordField.hasError('minlength')) {
+        Swal.fire('Error', 'La contraseña debe tener al menos 8 caracteres', 'error');
+      } else {
+        Swal.fire('Error', 'Completa todos los campos correctamente', 'error');
+      }
+      return;
     }
+
+    const password = this.formGroup.value.contrasena || '';
+    const encryptedPass = CryptoJS.SHA256(password).toString();
+    const formData = { ...this.formGroup.value, contrasena: encryptedPass };
+
+    this.registerService
+      .registerUser(formData)
+      .then((response) => {
+        if (!response) {
+          Swal.fire('Error', 'Error al registrar usuario', 'error');
+        } else {
+          Swal.fire('Éxito', 'Usuario registrado con éxito', 'success');
+          this.router.navigate(['']);
+        }
+      })
+      .catch((error) => {
+        Swal.fire('Error', 'Error al registrar usuario', 'error');
+        console.error('Registration error:', error);
+      });
   }
 
   get userField(): FormControl {
@@ -76,6 +77,4 @@ export default class RegisterComponent {
   get passwordField(): FormControl {
     return this.formGroup.controls.contrasena;
   }
-
-
 }

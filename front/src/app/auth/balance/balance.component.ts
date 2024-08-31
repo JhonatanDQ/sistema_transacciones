@@ -1,16 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TransactionService } from '../../core/services/transaction.service';
+import { BalanceService } from '../../core/services/balance.service'; // Ajusta la ruta según tu estructura de carpetas
 
 @Component({
   selector: 'app-balance',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './balance.component.html',
-  providers: [TransactionService]
+  // styleUrls: ['./balance.component.css']
 })
-export class BalanceComponent {
+export class BalanceComponent implements OnInit {
+  balance: number = 0;
+  accountEnding: string = '****'; // Deberías obtener esto del backend también
 
-  balance = 0
-  
+  constructor(private balanceService: BalanceService) {}
+
+  ngOnInit(): void {
+    this.loadBalance();
+  }
+
+  loadBalance(): void {
+    this.balanceService.getBalance().subscribe({
+      next: (data) => {
+        this.balance = data.balance; // Ajusta según la estructura de tu respuesta de API
+        this.accountEnding = data.accountEnding; // Ajusta según la estructura de tu respuesta de API
+      },
+      error: (err) => {
+        console.error('Error fetching balance:', err);
+      }
+    });
+  }
 }

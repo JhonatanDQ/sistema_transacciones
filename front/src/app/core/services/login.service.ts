@@ -1,39 +1,33 @@
 import { Injectable } from '@angular/core';
-import axios from 'axios';
-import * as CryptoJS from 'crypto-js'; // Import CryptoJS
+import { HttpClient } from '@angular/common/http';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private readonly apiUrl = 'http://localhost:4000/users';
+  private apiUrl = `http://localhost:4000/auth/login`;
 
-  async loginUser(userData: any): Promise<any> {
-    try {
-      // Encrypt the entered password using SHA256 (same as in registration)
-      const encryptedPassword = CryptoJS.SHA256(userData.contrasena).toString();
+  constructor(private http: HttpClient) {}
 
-      // Construct the API URL with the username for filtering
-      const url = `${this.apiUrl}?usuario=${userData.usuario}`;
+  loginUser(credentials: { usuario: string; contrasena: string }) {
+    return this.http.post<{ token: string }>(this.apiUrl, credentials).pipe(
+      catchError(this.handleError)
+    );
+  }
 
-      const response = await axios.get(url);
+  saveToken(token: string): void {
+    localStorage.setItem('authToken', token);
+  }
 
-      if (response.data.length > 0) {
-        // User found, now compare the encrypted passwords
-        const storedPassword = response.data[0].contrasena;
-
-        // Compare the entered encrypted password with the stored encrypted password
-        if (storedPassword === encryptedPassword) {
-          return response.data[0]; // Return the user data if passwords match
-        } else {
-          return false; // Passwords don't match
-        }
-      } else {
-        return false; // User not found
-      }
-    } catch (error) {
-      console.log('Error: ', error);
-      return false; // Handle errors appropriately
+  private handleError(error: any) {
+    let errorMessage = 'Error desconocido';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      errorMessage = `Código de error: ${error.status}\nMensaje: ${error.message}`;
     }
+    console.error(errorMessage);
+    return throwError(() => errorMessage);
   }
 }
