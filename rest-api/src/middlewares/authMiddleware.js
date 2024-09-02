@@ -1,37 +1,33 @@
-import jwt from 'jsonwebtoken';
+import Jwt from 'jsonwebtoken';
 import { environment } from '../config/default.js';
 import User from '../models/User.js';
+import cookieParser from 'cookie-parser';
 
+export const verifyToken = async (req, res, next) => {
+  // Get the token from the Authorization header
+  const token = req.header('Authorization').replace('Bearer ', '');
+  const authHeader = req.header('Authorization');
 
+  // const token = req.cookies.token;
 
-// Middleware para verificar el token JWT
-export const verifyToken = (req, res, next) => {
-  // Obtener el token desde los headers de la solicitud
-  const token = req.headers['authorization'];
-//   const token = req.cookies.token;
-
-  // Si no hay token, retornar un error
   if (!token) {
-    return res.status(403).json({ message: 'Token no proporcionado.' });
+    return res.status(401).json({ message: 'Token no proporcionado.' });
   }
 
   try {
-    // Verificar el token utilizando la clave secreta que usaste para firmarlo
-    const decoded = jwt.verify(token, environment.jwt_hash);
+    const decoded = Jwt.verify(token, environment.jwt_hash);
 
-    // Guardar los datos decodificados en la solicitud para usarlos en otras rutas
-    req.User = decoded;
+    // Find the user based on the decoded document
+    const user = await User.findOne({ where: { documento: decoded.data.documento } });
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado.' });
+    }
 
-    // Continuar con la siguiente función
+    // Add the user object to the request
+    req.User = user;
+
     next();
   } catch (error) {
-    // Si el token no es válido, retornar un error
     return res.status(401).json({ message: 'Token inválido.' });
   }
 };
-
-
-
-
-
-

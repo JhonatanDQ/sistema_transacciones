@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from '../app/guards/auth.guard';  // Asegúrate de que el guard esté en la ruta correcta
 import { provideHttpClient } from '@angular/common/http';
 
 export const routes: Routes = [
@@ -22,7 +21,6 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () => import('./auth/dashboard/dashboard.component'),
-    canActivate: [AuthGuard],
 
     children: [
       // {

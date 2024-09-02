@@ -1,6 +1,6 @@
 import Jwt from "jsonwebtoken";
 import { environment } from "../config/default.js";
-import { User } from "../models/User.js";
+import  User  from "../models/User.js";
 import crypto from 'crypto';
 
 // Utilidad para validar campos
@@ -76,6 +76,8 @@ export const Login = async (req, res) => {
         data: {
           documento: user.documento,
           usuario: user.usuario,
+          balance: user.balance,
+          contrasena: user.contrasena,
         },
       },
       environment.jwt_hash

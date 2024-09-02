@@ -9,8 +9,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './deposit.component.html',
   standalone: true,
   imports: [CommonModule],
-  // styleUrls: ['./deposit.component.css']
 })
+
 export class DepositComponent {
   amount: number = 0;
 

@@ -15,8 +15,8 @@ app.use(express.json())
 app.use(bodyParser.json())
 
 app.use(cors({
-    origin: 'http://localhost:4200', // Asegúrate de usar la URL correcta de tu frontend
-    credentials: true, // Habilita las cookies y las credenciales
+    origin: 'http://localhost:4200', // Tu frontend
+    credentials: true, // Permitir envío de credenciales
 }));
 
 app.use(userRoutes)
