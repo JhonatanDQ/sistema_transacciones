@@ -9,48 +9,70 @@
 <app-sidebar class="sidebar fixed top-16 left-0 h-[calc(100vh-4rem)]">
 </app-sidebar>
 
-
 <!-- Main content area -->
 <div class="ml-64 mt-16 p-8">
   <!-- Mostrar las tarjetas solo si showCards es true -->
   <div *ngIf="showCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Card 1 -->
-    <div class="bg-white   shadow-lg rounded-lg p-6 hover:scale-105 delay-75 ease-in">
-      <h3 class="text-lg font-semibold mb-4">Balance</h3>
-      <p class="text-gray-600 mb-4">Your current balance: <a class="text-green-600">{{ currentBalance | currency }}</a> </p>
-      <button class="bg-blue-500 text-white py-2 px-4 rounded"  (click)="navigateTo('/dashboard/balance')">
-        View Details
-      </button>
+    <!-- Card de Balance - Estilo Tarjeta de Crédito -->
+    <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-lg rounded-lg p-6 w-full mx-auto hover:scale-105 transition-transform ease-in-out duration-300">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-lg font-semibold">Balance</h3>
+        <img src="https://www.svgrepo.com/show/24489/credit-card.svg" alt="Card Icon" class="h-8 w-8">
+      </div>
+
+      <div class="mb-6">
+        <p class="text-gray-300">Available Balance</p>
+        <p class="text-2xl font-semibold tracking-wide mt-2">{{ currentBalance | currency }}</p>
+      </div>
+
+      <div class="flex justify-between items-center mt-6">
+        <p class="text-gray-400 text-xs">Card Number</p>
+        <p class="text-gray-400 text-xs">**** **** **** 1234</p>
+      </div>
+
+      <div class="flex justify-between items-center mt-2">
+        <p class="text-gray-400 text-xs">Valid Thru</p>
+        <p class="text-gray-400 text-xs">12/24</p>
+      </div>
+
+      <div class="flex justify-between items-center mt-2">
+        <p class="text-gray-400 text-xs">Name</p>
+        <p class="text-gray-400 text-xs">{{ userName }}</p>
+      </div>
     </div>
+
     <!-- Card 2 -->
-    <div class="bg-white shadow-lg rounded-lg p-6 hover:scale-105 delay-75 ease-in-out">
+    <div class="bg-white shadow-lg rounded-lg p-6 hover:scale-105 transition-transform ease-in-out duration-300">
       <h3 class="text-lg font-semibold mb-4">Deposits</h3>
-      <p class="text-gray-600 mb-4">Some more information here.</p>
-      <button class="bg-blue-500 text-white py-2 px-4 rounded" (click)="navigateTo('/dashboard/deposit')">
+      <p class="text-gray-600 mb-4">Your last deposit: <a class="text-green-700">+100$</a>.</p>
+      <button class="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline" (click)="navigateTo('/dashboard/deposit')">
         View Details
       </button>
     </div>
+
     <!-- Card 3 -->
-    <div class="bg-white shadow-lg rounded-lg p-6 hover:scale-105 delay-75 ease-in-out">
+    <div class="bg-white shadow-lg rounded-lg p-6 hover:scale-105 transition-transform ease-in-out duration-300">
       <h3 class="text-lg font-semibold mb-4">Withdrawals</h3>
       <p class="text-gray-600 mb-4">Your last withdraw: <a class="text-red-700">-100$</a></p>
-      <button class="bg-blue-500 text-white py-2 px-4 rounded" (click)="navigateTo('/dashboard/withdraw')">
+      <button class="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline" (click)="navigateTo('/dashboard/withdraw')">
         View Details
       </button>
     </div>
+
+    <!-- Card 4  -->
+    <div class="bg-white shadow-lg rounded-lg p-6 hover:scale-105 transition-transform ease-in-out duration-300">
+      <h3 class="text-lg font-semibold mb-4">Transfers</h3>
+      <p class="text-gray-600 mb-4">
+        Your last transfer: <a class="text-blue-700">{{ lastAmount }} to {{ lastRecipient }}</a>.
+      </p>
+      <button class="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline" (click)="navigateTo('/dashboard/transfer')">
+        View Details
+      </button>
+    </div>
+
+
   </div>
-
-  <div *ngIf="showCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-    <!-- ... other cards -->
-  </div>
-
 
   <!-- Mostrar el router-outlet para cargar los componentes -->
   <router-outlet *ngIf="!showCards"></router-outlet>
 </div>
-
-
-
-
-

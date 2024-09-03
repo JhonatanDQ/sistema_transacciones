@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DepositService } from '../../core/services/deposit.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { BalanceService } from '../../core/services/balance.service';
 
 @Component({
   selector: 'app-deposit',
@@ -10,14 +11,30 @@ import Swal from 'sweetalert2';
   imports: [CommonModule, FormsModule],
   templateUrl: './deposit.component.html',
 })
-export default class DepositComponent {
+export default class DepositComponent implements OnInit {
   depositAmount: number = 0;
   isLoading: boolean = false;
   successMessage: string | null = null;
   errorMessage: string | null = null;
   currentBalance: number | null = null;
 
-  constructor(private depositService: DepositService) { }
+  constructor(private depositService: DepositService, private BalanceService: BalanceService) { }
+
+  ngOnInit(){
+    this.fetchBalance();
+  }
+
+  fetchBalance() {
+    this.BalanceService.getBalance().subscribe(
+      (response) => {
+        this.currentBalance = response.balance;
+      },
+      (error) => {
+        console.error('Error fetching balance:', error);
+        // Handle the error appropriately (e.g., display an error message)
+      }
+    );
+  }
 
   deposit(): void {
     this.isLoading = true;
@@ -63,7 +80,7 @@ export default class DepositComponent {
           this.errorMessage = 'Error al procesar el depósito';
           Swal.fire('Error', this.errorMessage, 'error');
         }
-        
+
       }
     });
   }

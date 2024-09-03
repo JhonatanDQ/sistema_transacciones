@@ -1,8 +1,9 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { WithdrawService } from '../../core/services/withdraw.service';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
+import { BalanceService } from '../../core/services/balance.service';
 
 @Component({
   selector: 'app-withdraw',
@@ -10,13 +11,30 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule],
   templateUrl: './withdraw.component.html',
 })
-export default class WithdrawComponent {
+export default class WithdrawComponent implements OnInit {
   amount: number = 0;
   isLoading: boolean = false;
   successMessage: string | null = null;
   errorMessage: string | null = null;
+  currentBalance: number = 0;
 
-  constructor(private withdrawService: WithdrawService) {}
+  constructor(private withdrawService: WithdrawService, private BalanceService: BalanceService) {}
+
+  ngOnInit(){
+    this.fetchBalance();
+  }
+
+  fetchBalance() {
+    this.BalanceService.getBalance().subscribe(
+      (response) => {
+        this.currentBalance = response.balance;
+      },
+      (error) => {
+        console.error('Error fetching balance:', error);
+        // Handle the error appropriately (e.g., display an error message)
+      }
+    );
+  }
 
   makeWithdrawal(amount: number) {
     this.isLoading = true;
@@ -50,7 +68,7 @@ export default class WithdrawComponent {
         } else {
           this.errorMessage = 'Error al procesar el retiro';
           Swal.fire('Error', this.errorMessage, 'error');
-        } 
+        }
       }
     });
   }

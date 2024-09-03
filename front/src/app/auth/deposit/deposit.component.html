@@ -1,46 +1,39 @@
-<div class="deposit-card p-6 bg-white rounded-lg shadow-lg max-w-sm mx-auto">
-  <div class="flex items-center justify-between">
-    <div class="text-gray-700 font-semibold text-xl">
-      Depositar
-    </div>
-    <div class="text-gray-500">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-        class="h-6 w-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8.25V15m0 0l-3-3.75M12 15l3-3.75" />
-      </svg>
-    </div>
-  </div>
-
-  <form (ngSubmit)="deposit()" *ngIf="!isLoading && !successMessage" class="mt-4">
-    <div class="mb-4">
-      <label for="amount" class="block text-gray-700 font-bold mb-2">Cantidad:</label>
-      <input type="number" id="amount" name="amount" [(ngModel)]="depositAmount"
-        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        required>
+<div class="container mx-auto p-6">
+  <!-- Tarjeta de Depósito con Saldo Actual -->
+  <div class="deposit-card bg-white rounded-lg shadow-lg max-w-sm mx-auto border border-gray-300">
+    <!-- Sección de Balance en negro -->
+    <div class="bg-black text-white p-6 rounded-t-lg text-center">
+      <div class="text-3xl font-bold">{{ currentBalance | currency }}</div>
+      <div class="text-sm mt-2">Current Balance</div>
     </div>
 
-    <button type="submit"
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-      Depositar
-    </button>
-  </form>
+    <!-- Sección de Formulario -->
+    <div class="p-6">
+      <form (ngSubmit)="deposit()" *ngIf="!isLoading && !successMessage" class="mb-4">
+        <div class="mb-4">
+          <label for="amount" class="block text-gray-700 font-bold mb-2">Amount:</label>
+          <input type="number" id="amount" name="amount" [(ngModel)]="depositAmount"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Enter amount" required>
+        </div>
 
-  <div *ngIf="isLoading" class="mt-4">
-    Procesando depósito...
+        <button type="submit"
+          class="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline">
+          Deposit
+        </button>
+      </form>
+
+      <div *ngIf="isLoading" class="mt-4">
+        Processing deposit...
+      </div>
+
+      <div *ngIf="successMessage" class="mt-4 text-green-500">
+        {{ successMessage }}
+      </div>
+
+      <div *ngIf="errorMessage" class="mt-4 text-red-500">
+        {{ errorMessage }}
+      </div>
+    </div>
   </div>
-
-  <div *ngIf="successMessage" class="mt-4 text-green-500">
-    {{ successMessage }}
-  </div>
-
-  <div *ngIf="errorMessage" class="mt-4 text-red-500">
-    {{ errorMessage }}
-  </div>
-
-  <div *ngIf="currentBalance !== null" class="mt-4 text-gray-800">
-    <div class="font-semibold">Saldo Actual:</div>
-    <div class="text-xl">{{ currentBalance | currency }}</div>
-  </div>
-
-
 </div>

@@ -7,6 +7,6 @@ import { routes } from './app/app.routes';
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
-    provideHttpClient(), // Asegura que HttpClient esté disponible globalmente
+    provideHttpClient(),
   ],
 }).catch(err => console.error(err));
