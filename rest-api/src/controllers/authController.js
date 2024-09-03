@@ -76,8 +76,6 @@ export const Login = async (req, res) => {
         data: {
           documento: user.documento,
           usuario: user.usuario,
-          balance: user.balance,
-          contrasena: user.contrasena,
         },
       },
       environment.jwt_hash

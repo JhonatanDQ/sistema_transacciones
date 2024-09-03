@@ -7,13 +7,50 @@
 
 <!-- Sidebar -->
 <app-sidebar class="sidebar fixed top-16 left-0 h-[calc(100vh-4rem)]">
-
 </app-sidebar>
+
 
 <!-- Main content area -->
 <div class="ml-64 mt-16 p-8">
-  <app-balance class="balance-card"></app-balance>
-  <app-transfer></app-transfer>
-  <app-deposit></app-deposit>
+  <!-- Mostrar las tarjetas solo si showCards es true -->
+  <div *ngIf="showCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Card 1 -->
+    <div class="bg-white   shadow-lg rounded-lg p-6 hover:scale-105 delay-75 ease-in">
+      <h3 class="text-lg font-semibold mb-4">Balance</h3>
+      <p class="text-gray-600 mb-4">Your current balance: <a class="text-green-600">{{ currentBalance | currency }}</a> </p>
+      <button class="bg-blue-500 text-white py-2 px-4 rounded"  (click)="navigateTo('/dashboard/balance')">
+        View Details
+      </button>
+    </div>
+    <!-- Card 2 -->
+    <div class="bg-white shadow-lg rounded-lg p-6 hover:scale-105 delay-75 ease-in-out">
+      <h3 class="text-lg font-semibold mb-4">Deposits</h3>
+      <p class="text-gray-600 mb-4">Some more information here.</p>
+      <button class="bg-blue-500 text-white py-2 px-4 rounded" (click)="navigateTo('/dashboard/deposit')">
+        View Details
+      </button>
+    </div>
+    <!-- Card 3 -->
+    <div class="bg-white shadow-lg rounded-lg p-6 hover:scale-105 delay-75 ease-in-out">
+      <h3 class="text-lg font-semibold mb-4">Withdrawals</h3>
+      <p class="text-gray-600 mb-4">Your last withdraw: <a class="text-red-700">-100$</a></p>
+      <button class="bg-blue-500 text-white py-2 px-4 rounded" (click)="navigateTo('/dashboard/withdraw')">
+        View Details
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="showCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <!-- ... other cards -->
+  </div>
+
+
+  <!-- Mostrar el router-outlet para cargar los componentes -->
+  <router-outlet *ngIf="!showCards"></router-outlet>
 </div>
+
+
+
+
 

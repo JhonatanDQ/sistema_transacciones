@@ -1,34 +1,70 @@
-// deposit.component.ts
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import Swal from 'sweetalert';
+import { DepositService } from '../../core/services/deposit.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-deposit',
-  templateUrl: './deposit.component.html',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
+  templateUrl: './deposit.component.html',
 })
+export default class DepositComponent {
+  depositAmount: number = 0;
+  isLoading: boolean = false;
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
+  currentBalance: number | null = null;
 
-export class DepositComponent {
-  amount: number = 0;
+  constructor(private depositService: DepositService) { }
 
-  constructor(private http: HttpClient) {}
+  deposit(): void {
+    this.isLoading = true;
+    this.successMessage = null;
+    this.errorMessage = null;
 
-  deposit() {
-    if (this.amount <= 0) {
-      swal('Error', 'El monto debe ser positivo.', 'error');
-      return;
-    }
+    this.depositService.deposit(this.depositAmount).subscribe({
+      next: (response) => {
+        console.log('Deposit response:', response);
+        this.isLoading = false;
+        this.depositAmount = 0; // Reset the input field
 
-    this.http.post('/api/deposit', { amount: this.amount }).subscribe(
-      (response: any) => {
-        swal('Éxito', `Depósito exitoso. Nuevo saldo: ${response.balance}`, 'success');
+        // Obtener el saldo actual
+        this.depositService.getBalance().subscribe({
+          next: (balanceResponse) => {
+            this.currentBalance = balanceResponse.balance;
+          },
+          error: (error) => {
+            console.error('Error fetching balance:', error);
+            this.currentBalance = null; // Handle balance fetch error
+          }
+        });
+
+        // Mostrar modal de éxito con Swal
+        Swal.fire({
+          icon: 'success',
+          title: 'Depósito exitoso',
+          text: `Tu depósito ha sido procesado exitosamente. Saldo actual: ${this.currentBalance ? this.currentBalance : 'No disponible'}`,
+          confirmButtonText: 'OK'
+        }).then(() => {
+          // Recargar la página
+          window.location.reload();
+        });
       },
-      (error) => {
-        swal('Error', error.error.message, 'error');
+      error: (error) => {
+        console.error('Error making deposit:', error);
+        this.isLoading = false;
+
+        if (error.status === 401) {
+          // Manejar el error de no autorizado
+          Swal.fire('Error', 'No autorizado. Por favor, inicia sesión.', 'error');
+        } else {
+          this.errorMessage = 'Error al procesar el depósito';
+          Swal.fire('Error', this.errorMessage, 'error');
+        }
+        
       }
-    );
+    });
   }
 }

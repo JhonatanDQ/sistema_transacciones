@@ -93,7 +93,6 @@ export const withdraw = async (req, res) => {
 const MAX_DEPOSIT_AMOUNT = 1000000; // Cantidad máxima que se puede depositar
 
 export const deposit = async (req, res) => {
-    console.log(req.User);
     
     const { amount } = req.body;
     const userDocument = req.User.documento; 
@@ -132,22 +131,22 @@ export const deposit = async (req, res) => {
     }
 };
 
-
 // Obtener Balance
 export const balance = async (req, res) => {
-    const userDocument = req.User.documento; // Use req.User.documento
+    const userDocument = req.User.documento; 
 
     try {
-        // Encuentra el usuario basado en el documento del usuario autenticado (req.User)
         const user = await User.findOne({ where: { documento: userDocument } });
         if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
         
         // Devuelve solo el balance del usuario
-        res.json({ balance: user.balance });
+        res.json({ balance: user.balance }); // Correct response - ONLY ONE!
+        
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener el balance', error });
     }
-};
+}; 
+
 
 export default {
     deposit,

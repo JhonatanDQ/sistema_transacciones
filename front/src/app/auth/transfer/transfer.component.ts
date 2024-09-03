@@ -10,7 +10,7 @@ import Swal from 'sweetalert';
   imports: []
   // styleUrls: ['./transfer.component.css']
 })
-export class TransferComponent {
+export default class TransferComponent {
   amount: number = 0;
   recipientDocument: string = '';
 

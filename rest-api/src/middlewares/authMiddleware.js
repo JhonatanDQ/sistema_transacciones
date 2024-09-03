@@ -7,7 +7,6 @@ export const verifyToken = async (req, res, next) => {
   // Get the token from the Authorization header
   const token = req.header('Authorization').replace('Bearer ', '');
   const authHeader = req.header('Authorization');
-
   // const token = req.cookies.token;
 
   if (!token) {
