@@ -9,6 +9,7 @@ export const getUsers = async (req, res) => {
   }
 };
 
+
 export const createUser = async (req, res) => {
   try {
     const { usuario, contrasena, documento } = req.body;
@@ -26,3 +27,8 @@ export const createUser = async (req, res) => {
   }
 
 };
+
+export default {
+  getUsers,
+  createUser,
+}

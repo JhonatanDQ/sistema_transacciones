@@ -7,12 +7,13 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TransactionService {
-  private apiUrl = 'http://localhost:4000/transfer'; // Assuming this is your backend base URL
+
+  private apiUrl = 'http://localhost:4000/transaction';
 
   constructor(private http: HttpClient) {}
 
-  transfer(amount: number, recipientDocument: string): Observable<any> {
-    const url = `${this.apiUrl}/transfer`;
+  getTransactionHistory(): Observable<any> { // <-- Make it return Observable<any>
+    const url = `${this.apiUrl}/history`; // Assuming your backend endpoint is /history
     const token = localStorage.getItem('authToken');
 
     if (!token) {
@@ -24,6 +25,29 @@ export class TransactionService {
       'Authorization': `Bearer ${token}`
     });
 
+    return this.http.get(url, { headers }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+
+  transfer(amount: number, recipientDocument: string): Observable<any> {
+    const url = `${this.apiUrl}/transfer`;
+    const token = localStorage.getItem('authToken');
+    const body = {
+      amount,
+      recipientDocument
+    }
+
+    if (!token) {
+      console.error('Token not found in localStorage!');
+      return throwError('Token not found');
+    }
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    console.log(recipientDocument, amount)
     return this.http.post(url, { amount, recipientDocument }, { headers }).pipe(
       catchError(this.handleError)
     );

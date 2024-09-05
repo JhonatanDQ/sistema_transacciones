@@ -11,7 +11,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  loginUser(credentials: { usuario: string; contrasena: string }) {
+  loginUser(credentials: { documento: string; contrasena: string }) {
     return this.http.post<{ token: string }>(this.apiUrl, credentials, {
       withCredentials: true, // Permite enviar y recibir cookies
     }).pipe(

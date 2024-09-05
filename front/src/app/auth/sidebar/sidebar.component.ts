@@ -19,8 +19,7 @@ export class SidebarComponent {
   LogOut() {
     try {
       this.loginService.logoutUser();
-      localStorage.removeItem('token');
-
+      localStorage.removeItem('authToken');
       this.router.navigate(['/auth/login']);
     } catch (error) {
       console.error('Error al cerrar sesión:', error);

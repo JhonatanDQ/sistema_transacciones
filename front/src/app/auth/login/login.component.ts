@@ -34,7 +34,7 @@ export default class LoginComponent {
 
   constructor(private loginService: LoginService, private router: Router) {
     this.userForm = new FormGroup({
-      usuario: new FormControl('', [Validators.required]),
+      documento: new FormControl('', [Validators.required]),
       contrasena: new FormControl('', [Validators.required, Validators.minLength(8)]),
     });
   }

@@ -55,7 +55,8 @@ export default class RegisterComponent {
       .then((response) => {
         if (!response) {
           Swal.fire('Error', 'Error al registrar usuario', 'error');
-        } else {
+        }
+        else {
           Swal.fire('Éxito', 'Usuario registrado con éxito', 'success');
           this.router.navigate(['']);
         }

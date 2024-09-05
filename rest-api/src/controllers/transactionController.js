@@ -1,6 +1,7 @@
 import Transaction from '../models/Transactions.js';
 import { environment } from '../config/default.js';
 import { User } from '../models/User.js';
+import { Op } from 'sequelize'; // Import the Op operator for more complex queries
 
 
 // Transferencias
@@ -146,6 +147,26 @@ export const balance = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener el balance', error });
     }
 }; 
+
+export const getTransactionHistory = async (req, res) => {
+    const userDocument = req.User.documento;
+  
+    try {
+      const transactions = await Transaction.findAll({
+        where: {
+          [Op.or]: [
+            { userDocument: userDocument }, // Transactions where the user is the sender
+            { recipientDocument: userDocument } // Transactions where the user is the recipient
+          ]
+        },
+        order: [['createdAt', 'DESC']] // Order by transaction date (newest first)
+      });
+  
+      res.json(transactions);
+    } catch (error) {
+      res.status(500).json({ message: 'Error al obtener el historial de transacciones', error });
+    }
+};
 
 
 export default {

@@ -6,12 +6,12 @@
           <h1 class="font-semibold text-2xl text-center">Login</h1>
 
           <!-- Usuario -->
-          <h1 class="mt-14 font-semibold">Usuario</h1>
-          <input matInput type="text" placeholder="Usuario"
+          <h1 class="mt-14 font-semibold">Documento</h1>
+          <input matInput type="text" placeholder="Documnto"
             class="px-4 py-1 mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[260px] bg-slate-200 form-control"
-            formControlName="usuario" />
-          <mat-error class="flex text-red-600 mt-2" *ngIf="userForm.get('usuario')?.hasError('required')">
-            Ingrese el usuario
+            formControlName="documento" />
+          <mat-error class="flex text-red-600 mt-2" *ngIf="userForm.get('documento')?.hasError('required')">
+            Ingrese el Documento
           </mat-error>
 
           <!-- Contraseña -->

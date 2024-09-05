@@ -1,19 +1,26 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private tokenKey = 'authToken';
+  private apiUrl = 'http://localhost:4000';
 
-  private tokenKey = 'authToken';  // Asegúrate de que el nombre del token coincida con el utilizado en tu aplicación
-  userName: string = '';
+  constructor(private http: HttpClient) {}
 
   isLoggedIn(): boolean {
     const token = localStorage.getItem(this.tokenKey);
-    return !!token;  // Devuelve true si el token existe
+    return !!token;
   }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
+  }
+
 
 
 }

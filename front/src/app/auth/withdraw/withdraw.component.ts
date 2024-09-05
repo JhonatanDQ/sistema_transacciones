@@ -31,7 +31,6 @@ export default class WithdrawComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching balance:', error);
-        // Handle the error appropriately (e.g., display an error message)
       }
     );
   }

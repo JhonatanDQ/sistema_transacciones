@@ -51,11 +51,12 @@ export const Register = async (req, res) => {
   }
 };
 
+// Login Controller
 export const Login = async (req, res) => {
-  const { usuario, contrasena } = req.body;
+  const { documento, contrasena } = req.body;
 
   try {
-    const user = await User.findOne({ where: { usuario } });
+    const user = await User.findOne({ where: { documento } });
 
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado" });
@@ -72,7 +73,7 @@ export const Login = async (req, res) => {
     // Si las contraseñas coinciden, genera el token JWT
     const token = Jwt.sign(
       {
-        exp: Math.floor(Date.now() / 1000) + 60 * 60,
+        exp: Math.floor(Date.now() / 1000) + 60 * 60, // Expira en 1 hora
         data: {
           documento: user.documento,
           usuario: user.usuario,
@@ -81,15 +82,12 @@ export const Login = async (req, res) => {
       environment.jwt_hash
     );
 
-
-    // const token = jwt.sign({ documento: user.documento }, environment.jwt_hash, { expiresIn: '1h' });
-
-        // Envía el token en una cookie
-        res.cookie('token', token, {
-            httpOnly: true, // Solo accesible a través de HTTP(S), no JavaScript
-            secure: false, // Solo se enviará a través de HTTPS en producción
-            maxAge: 3600000, // 1 hora en milisegundos
-        });
+    // Envía el token en una cookie
+    res.cookie('token', token, {
+      httpOnly: true, // Solo accesible a través de HTTP(S), no JavaScript
+      secure: false, // Solo se enviará a través de HTTPS en producción
+      maxAge: 3600000, // 1 hora en milisegundos
+    });
 
     res.status(200).json({
       success: true,
@@ -99,6 +97,7 @@ export const Login = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
 
 export const dashboard = (req, res) => {
   const token = req.cookies.token;

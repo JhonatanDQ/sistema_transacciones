@@ -24,5 +24,6 @@ app.use(cookieParser());
 
 app.use('/auth', routerAuth)
 app.use ('/transaction',transactionRoutes)
+app.use('/user', userRoutes)
 
 export default app;

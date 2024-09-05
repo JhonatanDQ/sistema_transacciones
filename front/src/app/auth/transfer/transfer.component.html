@@ -10,6 +10,7 @@
     <!-- Sección de Formulario -->
     <div class="p-6">
       <form (ngSubmit)="transfer()" *ngIf="!isLoading && !successMessage" class="mb-4">
+
         <div class="mb-4">
           <label for="amount" class="block text-gray-700 font-bold mb-2">Amount:</label>
           <input type="number" id="amount" name="amount" [(ngModel)]="amount"

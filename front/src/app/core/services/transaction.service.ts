@@ -1,29 +1,30 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+interface Transaction {
+  id: number;
+  userDocument: string;
+  recipientDocument: string;
+  amount: number;
+  type: string;
+  createdAt: Date;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionService {
+  private apiUrl = 'http://localhost:4000/transaction';
 
-  private apiUrl = 'http://localhost:4000';
+  constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) {}
+  getTransactionHistory(): Observable<Transaction[]> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
 
-  getBalance(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/balance`);
-  }
-
-  withdraw(amount: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/withdraw`, { amount });
-  }
-
-  deposit(amount: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/deposit`, { amount });
-  }
-
-  transfer(amount: number, recipientDocument: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/transfer`, { amount, recipientDocument });
+    return this.http.get<Transaction[]>(`${this.apiUrl}/history`, { headers });
   }
 }
