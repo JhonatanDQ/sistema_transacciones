@@ -32,7 +32,7 @@ export default class RegisterComponent {
 
   formGroup = this._FormBuilder.nonNullable.group({
     usuario: ['', Validators.required],
-    documento: ['', Validators.required],
+    documento: ['', [Validators.required, Validators.pattern(/^\d+$/), Validators.minLength(10), Validators.maxLength(10)]],
     contrasena: ['', [Validators.required, Validators.minLength(8)]],
   });
 
@@ -40,7 +40,26 @@ export default class RegisterComponent {
     if (this.formGroup.invalid) {
       if (this.passwordField.hasError('minlength')) {
         Swal.fire('Error', 'La contraseña debe tener al menos 8 caracteres', 'error');
-      } else {
+      }
+      else if (this.passwordField.hasError('required')) {
+        Swal.fire('Error', 'La contraseña es requerida', 'error');
+      }
+      else if (this.documentField.hasError('required')) {
+        Swal.fire('Error', 'El documento es requerido', 'error');
+      }
+      else if (this.documentField.hasError('pattern')) {
+        Swal.fire('Error', 'El documento debe contener solo números', 'error');
+      }
+      else if (this.documentField.hasError('minlength')) {
+        Swal.fire('Error', 'El documento debe tener al menos 10 caracteres', 'error');
+      }
+      else if (this.documentField.hasError('maxlength')) {
+        Swal.fire('Error', 'El documento debe tener máximo 10 caracteres', 'error');
+      }
+      else if (this.userField.hasError('required')) {
+        Swal.fire('Error', 'El usuario es requerido', 'error');
+      }
+      else {
         Swal.fire('Error', 'Completa todos los campos correctamente', 'error');
       }
       return;

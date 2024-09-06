@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { BalanceService } from '../../core/services/balance.service';
 import { AuthService } from '../../core/services/auth.service';
 import { TransactionHistoryComponent } from "../transaction/transaction.component";
-
+import { UserService } from './../../core/services/user.service';
 
 
 
@@ -32,7 +32,10 @@ export default class DashboardComponent implements OnInit {
 
   constructor(private router: Router,
      private BalanceService: BalanceService,
-     private AuthService: AuthService,) {
+     private AuthService: AuthService,
+     private userService: UserService // Inject UserService
+
+    ) {
 
     // Detect route changes to hide/show cards
     this.router.events.subscribe(event => {
@@ -45,6 +48,7 @@ export default class DashboardComponent implements OnInit {
 
       ngOnInit() {
         this.fetchBalance();
+        this.fetchUser();
       }
 
       fetchBalance() {
@@ -59,6 +63,18 @@ export default class DashboardComponent implements OnInit {
       }
 
        // Función para obtener la información del usuario
+       fetchUser() {
+        this.userService.getUserInfo().subscribe(
+          (response) => {
+            this.user = response;
+            console.log("User data:", this.user); // Log the fetched user data
+          },
+          (error) => {
+            console.error('Error fetching user info:', error);
+            // Handle error appropriately
+          }
+        );
+      }
 
 
   navigateTo(path: string) {
