@@ -10,14 +10,19 @@ import { BalanceService } from '../../core/services/balance.service';
 import { AuthService } from '../../core/services/auth.service';
 import { TransactionHistoryComponent } from "../transaction/transaction.component";
 import { UserService } from './../../core/services/user.service';
-
-
+import { TransactionService } from '../../core/services/transaction.service';
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [SidebarComponent, RouterLink, CommonModule, TransferComponent_1, DepositComponent, RouterOutlet, TransactionHistoryComponent],
+  imports: [SidebarComponent,
+     RouterLink,
+     CommonModule,
+     TransferComponent_1,
+     DepositComponent,
+     RouterOutlet,
+     TransactionHistoryComponent],
   templateUrl: './dashboard.component.html',
 
 })
@@ -25,18 +30,19 @@ export default class DashboardComponent implements OnInit {
 
   showCards: boolean = true;
   currentBalance: number = 0;
-  lastRecipient: string = 'asd1'; // Nombre del último destinatario
-  lastAmount: string = '$0'; // Monto de la última transferencia
+  lastRecipient: string | undefined ; // Nombre del último destinatario
+  lastTransfer: string | number = 0; // Monto de la última transferencia
   user: any = {};
-
+  lastDeposit: string | number = 0;
+  lastWithdraw: string | number = 0;
 
   constructor(private router: Router,
      private BalanceService: BalanceService,
      private AuthService: AuthService,
-     private userService: UserService // Inject UserService
+     private userService: UserService, // Inject UserService
+     private transactionService: TransactionService
 
     ) {
-
     // Detect route changes to hide/show cards
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -49,6 +55,31 @@ export default class DashboardComponent implements OnInit {
       ngOnInit() {
         this.fetchBalance();
         this.fetchUser();
+        this.getLastDeposit();
+        this.getLastWithdraw();
+        this.getLastTransfer();
+      }
+
+      getLastDeposit() {
+        this.transactionService.getLastDeposit().subscribe(
+          (response: { amount: string | number } | null) => {
+            if (response) {
+              this.lastDeposit = response.amount;
+            } else {
+              this.lastDeposit = 0;
+            }
+          },);
+      }
+
+      getLastWithdraw() {
+        this.transactionService.getLastWithdrawal().subscribe(
+          (response: { amount: string | number } | null) => {
+            if (response) {
+              this.lastWithdraw = response.amount;
+            } else {
+              this.lastWithdraw = 0;
+            }
+          },);
       }
 
       fetchBalance() {
@@ -62,19 +93,28 @@ export default class DashboardComponent implements OnInit {
         );
       }
 
-       // Función para obtener la información del usuario
        fetchUser() {
         this.userService.getUserInfo().subscribe(
           (response) => {
             this.user = response;
-            console.log("User data:", this.user); // Log the fetched user data
           },
           (error) => {
             console.error('Error fetching user info:', error);
-            // Handle error appropriately
           }
         );
       }
+
+      getLastTransfer() {
+        this.transactionService.getLastTransfer().subscribe(
+          (response: { amount: string | number } | null) => {
+            if (response) {
+              this.lastTransfer = response.amount;
+            } else {
+              this.lastTransfer = 0;
+            }
+          },);
+      }
+
 
 
   navigateTo(path: string) {

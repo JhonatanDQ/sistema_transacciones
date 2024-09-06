@@ -24,6 +24,7 @@ export default class DepositComponent implements OnInit {
     this.fetchBalance();
   }
 
+
   fetchBalance() {
     this.BalanceService.getBalance().subscribe(
       (response) => {
@@ -40,6 +41,19 @@ export default class DepositComponent implements OnInit {
     this.isLoading = true;
     this.successMessage = null;
     this.errorMessage = null;
+
+    // Validaciones antes de realizar el depósito
+    if (this.depositAmount <= 0) {
+      Swal.fire('Error', 'El monto del depósito debe ser mayor que cero.', 'error');
+      this.isLoading = false;
+      return;
+    }
+
+    if (isNaN(this.depositAmount)) {
+      Swal.fire('Error', 'Ingresa un monto numérico válido.', 'error');
+      this.isLoading = false;
+      return;
+    }
 
     this.depositService.deposit(this.depositAmount).subscribe({
       next: (response) => {
@@ -84,4 +98,6 @@ export default class DepositComponent implements OnInit {
       }
     });
   }
+
+
 }

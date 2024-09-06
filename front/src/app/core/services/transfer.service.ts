@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class TransactionService {
 
   constructor(private http: HttpClient) {}
 
-  getTransactionHistory(): Observable<any> { // <-- Make it return Observable<any>
-    const url = `${this.apiUrl}/history`; // Assuming your backend endpoint is /history
+  getTransactionHistory(): Observable<any> {
+    const url = `${this.apiUrl}/history`;
     const token = localStorage.getItem('authToken');
 
     if (!token) {
@@ -29,7 +29,6 @@ export class TransactionService {
       catchError(this.handleError)
     );
   }
-
 
   transfer(amount: number, recipientDocument: string): Observable<any> {
     const url = `${this.apiUrl}/transfer`;

@@ -168,10 +168,72 @@ export const getTransactionHistory = async (req, res) => {
     }
 };
 
+export const getLastDeposit = async (req, res) => {
+    const userDocument = req.User.documento; 
+
+    try {
+        const deposit = await Transaction.findOne({ 
+            where: { 
+                userDocument: userDocument, 
+                type: 'deposit' 
+            },
+            order: [['createdAt', 'DESC']] // Get the most recent deposit
+        });
+
+        // If no deposit is found, deposit will be null
+        res.json(deposit); 
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving deposit', error });
+    }
+};
+
+export const getLastWithdrawal = async (req, res) => {
+    const userDocument = req.User.documento;
+
+    try {
+        const  withdrawal = await Transaction.findOne({ 
+            where: { 
+                userDocument: userDocument, 
+                type: 'withdrawal' 
+            },
+            order: [['createdAt', 'DESC']] // Get the most recent withdrawal
+        });
+        // If no withdrawal is found, withdrawal will be null
+        res.json(withdrawal);
+    } catch (error) {
+        res.status(500).json({ message: 'Error retrieving withdrawal', error });
+    }
+};
+
+export const getLastTransfer = async (req, res) => {
+const userDocument = req.User.documento;
+
+try {
+    const transfer = await Transaction.findOne({
+        where: {
+            [Op.or]: [
+                { userDocument: userDocument },
+                { recipientDocument: userDocument },
+
+            ]
+        },
+        order: [['createdAt', 'DESC']] // Get the most recent transfer
+        });
+
+    // If no transfer is found, transfer will be null
+    res.json(transfer);
+} catch (error) {
+    res.status(500).json({ message: 'Error retrieving last transfer', error });
+}
+}
 
 export default {
     deposit,
     withdraw,
     transfer,
-    balance
+    balance,
+    getTransactionHistory,
+    getLastDeposit,
+    getLastWithdrawal,
+
 };

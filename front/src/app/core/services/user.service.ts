@@ -14,7 +14,7 @@ export class UserService {
   getUserInfo(): Observable<any> {
     const token = localStorage.getItem('authToken'); // Get token from localStorage
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}` // Set Authorization header
+      'Authorization': `Bearer ${token}`
     });
 
     return this.http.get(`${this.apiUrl}/info`, { headers }).pipe(
