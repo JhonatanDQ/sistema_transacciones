@@ -14,21 +14,6 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  // Método para iniciar sesión
-  login(credentials: { documento: string, contrasena: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials, { withCredentials: true })
-      .pipe(
-        map((response: any) => {
-          // Guarda el token en el localStorage si la respuesta lo incluye
-          if (response.token) {
-            localStorage.setItem(this.tokenKey, response.token);
-          }
-          return response;
-        }),
-        catchError(this.handleError)
-      );
-  }
-
   // Método para cerrar sesión
   logout(): void {
     localStorage.removeItem(this.tokenKey);

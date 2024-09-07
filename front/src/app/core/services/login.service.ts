@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import axios from 'axios';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private apiUrl = `http://localhost:4000/auth/login`;
+  private apiUrl = `http://localhost:4000/auth`;
 
   constructor(private http: HttpClient) {}
 
-  loginUser(credentials: { documento: string; contrasena: string }) {
-    return this.http.post<{ token: string }>(this.apiUrl, credentials, {
-      withCredentials: true, // Permite enviar y recibir cookies
-    }).pipe(
-      catchError(this.handleError)
-    );
+  loginUser(credentials: { documento: string, contrasena: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, credentials, { withCredentials: true })
+      .pipe(
+        map((response: any) => {
+          if (response.token) {
+            this.saveToken(response.token); // Llama al método saveToken
+          }
+          return response;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   async logoutUser(): Promise<any> {

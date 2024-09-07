@@ -1,39 +1,46 @@
-<main class="bg-slate-200">
-  <form [formGroup]="userForm">
-    <div class="bg-black opacity-80 h-[500px] w-[990px] flex container justify-center mx-auto mt-24 drop-shadow-lg">
-      <div class="bg-white h-[500px] w-[400px] flex mx-auto ml-[600px] drop-shadow-lg shadow-2xl">
-        <div class="justify-center mx-auto items-center mt-10">
-          <h1 class="font-semibold text-2xl text-center">Login</h1>
+<main class="bg-gradient-to-tr from-black to-blue-950 min-h-screen flex items-center justify-center py-12">
+  <form [formGroup]="userForm" class="w-full max-w-4xl mx-auto">
 
-          <!-- Usuario -->
-          <h1 class="mt-14 font-semibold">Documento</h1>
-          <input matInput type="text" placeholder="Documnto"
-            class="px-4 py-1 mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[260px] bg-slate-200 form-control"
-            formControlName="documento" />
-          <mat-error class="flex text-red-600 mt-2" *ngIf="userForm.get('documento')?.hasError('required')">
-            Ingrese el Documento
-          </mat-error>
+    <div class="flex bg-cover bg-center rounded-lg shadow-lg overflow-hidden h-auto md:h-[500px]" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://easycdn.es/4/i/que-es-la-banca-de-inversion_22516.png');">
+      <!-- Login Form Section -->
+      <div class="w-full md:w-[400px] bg-white p-8 flex flex-col justify-center mx-auto shadow-xl">
+        <h1 class="font-semibold text-3xl text-center text-gray-800">Login</h1>
 
-          <!-- Contraseña -->
-          <h1 class="mt-5 font-semibold">Contraseña</h1>
-          <input matInput type="password" placeholder="Contraseña"
-            class="px-4 py-1 mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[260px] bg-slate-200 form-control"
-            formControlName="contrasena" />
-          <mat-error class="flex text-red-600 mt-2" *ngIf="userForm.get('contrasena')?.hasError('required')">
-            Ingrese la contraseña
-          </mat-error>
+        <!-- Documento -->
+        <label class="mt-8 font-medium text-gray-600">Documento</label>
+        <input matInput type="text" placeholder="Documento"
+          class="px-4 py-2 mt-2 rounded-lg border-solid shadow-md cursor-text w-full bg-slate-200"
+          formControlName="documento" />
+        <mat-error class="text-red-600 mt-2" *ngIf="userForm.get('documento')?.hasError('required')">
+          Ingrese el Documento
+        </mat-error>
 
-          <!-- Botón de Iniciar Sesión -->
-          <a (click)="clickLogin()"
-          class="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mx-auto focus:outline-none focus:shadow-outline flex cursor-pointer w-auto mt-4 ">
-            Iniciar sesión
-          </a>
+        <!-- Contraseña -->
+        <label class="mt-4 font-medium text-gray-600">Contraseña</label>
+        <input matInput type="password" placeholder="Contraseña"
+          class="px-4 py-2 mt-2 rounded-lg border-solid shadow-md cursor-text w-full bg-slate-200"
+          formControlName="contrasena" />
+        <mat-error class="text-red-600 mt-2" *ngIf="userForm.get('contrasena')?.hasError('required')">
+          Ingrese la contraseña
+        </mat-error>
 
-          <!-- Registro -->
-          <p class="mt-2 text-slate-600 select-none">¿No tienes cuenta?</p>
+        <!-- Botón de Iniciar Sesión -->
+        <a (click)="clickLogin()"
+          class="bg-black hover:bg-gray-800 text-white font-bold py-3 px-4 rounded mt-6 flex justify-center w-full">
+          Iniciar sesión
+        </a>
+
+        <!-- Registro -->
+        <div class="text-center mt-6">
+          <p class="text-slate-600">¿No tienes cuenta?</p>
           <a [routerLink]="'/auth/register'"
-            class="text-blue-400 underline text-sm cursor-pointer select-none">Regístrate</a>
+            class="text-blue-400 underline text-sm cursor-pointer">Regístrate</a>
         </div>
+      </div>
+
+      <!-- Background Image Section (only visible on larger screens) -->
+      <div class="hidden md:block w-3/5">
+        <!-- Empty div for background image -->
       </div>
     </div>
   </form>

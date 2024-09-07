@@ -84,14 +84,6 @@ export const Login = async (req, res) => {
       },
       environment.jwt_hash
     );
-
-    // Envía el token en una cookie
-    // res.cookie('token', token, {
-    //   httpOnly: true, // Solo accesible a través de HTTP(S), no JavaScript
-    //   secure: false, // Solo se enviará a través de HTTPS en producción
-    //   maxAge: 3600000, // 1 hora en milisegundos
-    // });
-
     res.status(200).json({
       success: true,
       token: token,
@@ -100,7 +92,6 @@ export const Login = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-
 
 export const logout = (req, res) => {
   res.clearCookie('authtToken');

@@ -32,7 +32,7 @@ export default class RegisterComponent {
 
   formGroup = this._FormBuilder.nonNullable.group({
     usuario: ['', Validators.required],
-    documento: ['', [Validators.required, Validators.pattern(/^\d+$/), Validators.minLength(10), Validators.maxLength(10)]],
+    documento: ['', [Validators.required, Validators.pattern(/^\d+$/), Validators.minLength(10),]],
     contrasena: ['', [Validators.required, Validators.minLength(8)]],
   });
 
@@ -52,9 +52,6 @@ export default class RegisterComponent {
       }
       else if (this.documentField.hasError('minlength')) {
         Swal.fire('Error', 'El documento debe tener al menos 10 caracteres', 'error');
-      }
-      else if (this.documentField.hasError('maxlength')) {
-        Swal.fire('Error', 'El documento debe tener máximo 10 caracteres', 'error');
       }
       else if (this.userField.hasError('required')) {
         Swal.fire('Error', 'El usuario es requerido', 'error');

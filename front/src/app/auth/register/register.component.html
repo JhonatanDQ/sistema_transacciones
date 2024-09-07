@@ -1,43 +1,35 @@
-<main>
-  <form [formGroup]="formGroup" (ngSubmit)="clickRegister()">
-    <div class="bg-slate-200">
-      <div class="bg-white flex container justify-center mx-auto h-auto w-[550px] mt-20 rounded-xl shadow-lg mb-24 py-5">
-        <div class="p-4 justify-center mx-auto items-center">
-          <h1 class="font-semibold text-2xl text-center justify-center mt-2 select-none flex">
-            Registrarse
-          </h1>
+<main class="bg-slate-900 min-h-screen flex items-center justify-center py-12">
+  <form [formGroup]="formGroup" (ngSubmit)="clickRegister()" class="w-full max-w-lg mx-auto">
+    <div class="bg-white flex flex-col justify-center p-8 rounded-lg shadow-lg">
+      <h1 class="font-semibold text-3xl text-center text-gray-800 mb-6">Registrarse</h1>
 
-          <h1 class="mt-2 font-semibold justify-start mb-2">
-            Usuario <a class="text-red-700">*</a>
-          </h1>
-          <input type="text"
-            class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
-            formControlName="usuario" />
-          <mat-error *ngIf="formGroup.get('usuario')?.hasError('required')" class="mt-2 flex text-red-700">Ingrese el usuario</mat-error>
+      <!-- Usuario -->
+      <label class="font-medium text-gray-600 mb-2">Usuario <span class="text-red-700">*</span></label>
+      <input type="text"
+        class="px-4 py-2 rounded-lg border-solid shadow-md cursor-text w-full bg-slate-200"
+        formControlName="usuario" />
+      <mat-error *ngIf="formGroup.get('usuario')?.hasError('required')" class="text-red-700 mt-2">Ingrese el usuario</mat-error>
 
-          <h1 class="mt-2 font-semibold justify-start mb-2">
-            Documento<a class="text-red-700">*</a>
-          </h1>
-          <input type="text"
-            class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
-            formControlName="documento" />
-          <mat-error *ngIf="formGroup.get('documento')?.hasError('required')" class="mt-2 flex text-red-700">Ingrese el Documento</mat-error>
+      <!-- Documento -->
+      <label class="font-medium text-gray-600 mt-4 mb-2">Documento <span class="text-red-700">*</span></label>
+      <input type="text"
+        class="px-4 py-2 rounded-lg border-solid shadow-md cursor-text w-full bg-slate-200"
+        formControlName="documento" />
+      <mat-error *ngIf="formGroup.get('documento')?.hasError('required')" class="text-red-700 mt-2">Ingrese el Documento</mat-error>
 
-          <h1 class="mt-2 font-semibold justify-start mb-2">
-            Contraseña <a class="text-red-700">*</a>
-          </h1>
-          <input type="password"
-            class="px-4 py-1 items-start justify-start mt-1 rounded-lg border-solid shadow-lg cursor-text h-8 w-[400px] bg-slate-200"
-            formControlName="contrasena" />
-          <mat-error *ngIf="formGroup.get('contrasena')?.hasError('required')" class="mt-2 flex text-red-700">Ingrese la contraseña</mat-error>
-          <mat-error *ngIf="formGroup.get('contrasena')?.hasError('minlength')" class="mt-2 flex text-red-700">La contraseña debe tener al menos 8 caracteres</mat-error>
+      <!-- Contraseña -->
+      <label class="font-medium text-gray-600 mt-4 mb-2">Contraseña <span class="text-red-700">*</span></label>
+      <input type="password"
+        class="px-4 py-2 rounded-lg border-solid shadow-md cursor-text w-full bg-slate-200"
+        formControlName="contrasena" />
+      <mat-error *ngIf="formGroup.get('contrasena')?.hasError('required')" class="text-red-700 mt-2">Ingrese la contraseña</mat-error>
+      <mat-error *ngIf="formGroup.get('contrasena')?.hasError('minlength')" class="text-red-700 mt-2">La contraseña debe tener al menos 8 caracteres</mat-error>
 
-          <a (click)="clickRegister()"
-            class="bg-black flex mt-10 justify-center hover:bg-gray-700 text-white font-bold py-2 px-4 rounded w-auto focus:outline-none focus:shadow-outline select-none">
-            Registrarse
-          </a>
-        </div>
-      </div>
+      <!-- Botón de Registro -->
+      <button type="submit"
+        class="bg-black hover:bg-gray-700 text-white font-bold py-3 px-4 rounded mt-6 w-full focus:outline-none focus:shadow-outline">
+        Registrarse
+      </button>
     </div>
   </form>
 </main>
