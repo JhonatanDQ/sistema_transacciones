@@ -1,7 +1,7 @@
 import Transaction from '../models/Transactions.js';
 import { environment } from '../config/default.js';
 import { User } from '../models/User.js';
-import { Op } from 'sequelize'; // Import the Op operator for more complex queries
+import { Op } from 'sequelize'; 
 
 
 // Transferencias
@@ -177,10 +177,10 @@ export const getLastDeposit = async (req, res) => {
                 userDocument: userDocument, 
                 type: 'deposit' 
             },
-            order: [['createdAt', 'DESC']] // Get the most recent deposit
+            order: [['createdAt', 'DESC']] 
         });
 
-        // If no deposit is found, deposit will be null
+     
         res.json(deposit); 
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving deposit', error });
@@ -196,9 +196,9 @@ export const getLastWithdrawal = async (req, res) => {
                 userDocument: userDocument, 
                 type: 'withdrawal' 
             },
-            order: [['createdAt', 'DESC']] // Get the most recent withdrawal
+            order: [['createdAt', 'DESC']] 
         });
-        // If no withdrawal is found, withdrawal will be null
+     
         res.json(withdrawal);
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving withdrawal', error });
@@ -217,10 +217,10 @@ try {
 
             ]
         },
-        order: [['createdAt', 'DESC']] // Get the most recent transfer
+        order: [['createdAt', 'DESC']] 
         });
 
-    // If no transfer is found, transfer will be null
+   
     res.json(transfer);
 } catch (error) {
     res.status(500).json({ message: 'Error retrieving last transfer', error });
