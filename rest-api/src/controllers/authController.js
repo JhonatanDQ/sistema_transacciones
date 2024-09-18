@@ -54,7 +54,6 @@ export const Register = async (req, res) => {
   }
 };
 
-// Login Controller
 export const Login = async (req, res) => {
   const { documento, contrasena } = req.body;
 
@@ -76,7 +75,7 @@ export const Login = async (req, res) => {
     // Si las contraseñas coinciden, genera el token JWT
     const token = Jwt.sign(
       {
-        exp: Math.floor(Date.now() / 1000) + 60 * 60, // Expira en 1 hora
+        exp: Math.floor(Date.now() / 1000) + 60 * 60, 
         data: {
           documento: user.documento,
           usuario: user.usuario,
@@ -94,7 +93,6 @@ export const Login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.clearCookie('authtToken');
   res.status(200).json({ message: "Logout exitoso" });
 };
 

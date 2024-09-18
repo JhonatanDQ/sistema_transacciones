@@ -1,7 +1,6 @@
 import { Login, logout } from '../controllers/authController.js'
 import { Register } from '../controllers/authController.js'
 import { Router } from 'express';
-import { verifyToken } from '../middlewares/authMiddleware.js';
 
 
 

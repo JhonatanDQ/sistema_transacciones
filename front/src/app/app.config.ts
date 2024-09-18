@@ -12,6 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideAnimationsAsync(),
-    HttpClientModule // Add HttpClientModule to the providers array
+    HttpClientModule 
   ]
 };

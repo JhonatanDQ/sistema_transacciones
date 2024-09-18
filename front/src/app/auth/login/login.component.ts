@@ -24,6 +24,7 @@ import { LoginService } from '../../../app/core/services/login.service';
   ],
   templateUrl: './login.component.html',
 })
+
 export default class LoginComponent {
   userForm: FormGroup;
   errorMessage: string | null = null;

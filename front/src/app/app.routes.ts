@@ -19,7 +19,6 @@ export const routes: Routes = [
       { path: 'deposit', loadComponent: () => import('./auth/deposit/deposit.component') },
       { path: 'withdraw', loadComponent: () => import('./auth/withdraw/withdraw.component') },
       { path: 'transfer', loadComponent: () => import('./auth/transfer/transfer.component') },
-      // { path: 'profile', loadComponent: () => import('./profile/profile.component') },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   },

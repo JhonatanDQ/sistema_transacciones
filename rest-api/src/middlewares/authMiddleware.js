@@ -1,7 +1,6 @@
 import Jwt from 'jsonwebtoken';
 import { environment } from '../config/default.js';
 import User from '../models/User.js';
-import cookieParser from 'cookie-parser';
 
 export const verifyToken = async (req, res, next) => {
   const token = req.header('Authorization').replace('Bearer ', '');

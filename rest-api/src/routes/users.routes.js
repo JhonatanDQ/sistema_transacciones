@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { getUsers, createUser} from '../controllers/user.Controller.js';
 import { verifyToken } from '../middlewares/authMiddleware.js';
-// import { verifyToken } from '../middlewares/authMiddleware.js';
 
 
 const router = Router();

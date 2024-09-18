@@ -15,7 +15,7 @@ export const transfer = async (req, res) => {
     }
   
     try {
-        const sender = await User.findOne({ where: { documento: senderDocument } }); // Fetch sender
+        const sender = await User.findOne({ where: { documento: senderDocument } });
         if (!sender) return res.status(404).json({ message: 'Usuario remitente no encontrado' });
         
         if (recipientDocument === senderDocument) {
@@ -54,7 +54,7 @@ export const transfer = async (req, res) => {
 // Retiros
 export const withdraw = async (req, res) => {
     const { amount } = req.body;
-    const userDocument = req.User.documento; // Acceso al documento del usuario desde req.User
+    const userDocument = req.User.documento;
 
     const parsedAmount = parseFloat(amount);
     if (isNaN(parsedAmount) || parsedAmount <= 0) {
@@ -62,7 +62,6 @@ export const withdraw = async (req, res) => {
     }
   
     try {
-        // Encuentra el usuario basado en el documento del usuario autenticado (req.User)
         const user = await User.findOne({ where: { documento: userDocument } });
         if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
   
@@ -141,7 +140,7 @@ export const balance = async (req, res) => {
         if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
         
         // Devuelve solo el balance del usuario
-        res.json({ balance: user.balance }); // Correct response - ONLY ONE!
+        res.json({ balance: user.balance }); 
         
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener el balance', error });
@@ -155,11 +154,11 @@ export const getTransactionHistory = async (req, res) => {
       const transactions = await Transaction.findAll({
         where: {
           [Op.or]: [
-            { userDocument: userDocument }, // Transactions where the user is the sender
-            { recipientDocument: userDocument } // Transactions where the user is the recipient
+            { userDocument: userDocument }, 
+            { recipientDocument: userDocument } 
           ]
         },
-        order: [['createdAt', 'DESC']] // Order by transaction date (newest first)
+        order: [['createdAt', 'DESC']]
       });
   
       res.json(transactions);

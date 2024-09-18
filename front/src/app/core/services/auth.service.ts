@@ -22,7 +22,7 @@ export class AuthService {
 
   // Método para verificar si el usuario ha iniciado sesión
   isLoggedIn(): boolean {
-    return !!localStorage.getItem(this.tokenKey); // Verifica si el token existe en el localStorage
+    return !!localStorage.getItem(this.tokenKey); 
   }
 
   // Manejo de errores
